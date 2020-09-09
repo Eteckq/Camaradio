@@ -55,6 +55,8 @@ const viewsDir = path.join(__dirname, 'views');
 app.set('views', viewsDir);
 const staticDir = path.join(__dirname, 'public');
 app.use(express.static(staticDir));
+
+// If the user is not connected, we send him to spotify login page
 app.get('*', (req: Request, res: Response) => {
     const user = req.cookies.user
     if(user){

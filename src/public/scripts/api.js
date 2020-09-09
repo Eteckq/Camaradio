@@ -1,8 +1,5 @@
 function getMe() {
-  console.log("Get infos..");
-  fetch("/api/spotify/me").then((data) => {
-    console.log(data);
-  });
+  return fetch("/api/spotify/me");
 }
 
 function fetch(endpoint) {
