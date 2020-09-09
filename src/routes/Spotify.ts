@@ -11,8 +11,6 @@ router.get('/me', async (req: Request, res: Response) => {
     fetch('me', user).then(data => {
         res.json({data})
     })
-
-
 });
 
 function fetch(endpoint: string, user: IUser) {
@@ -20,16 +18,14 @@ function fetch(endpoint: string, user: IUser) {
       request.get(
         {
           url: 'https://api.spotify.com/v1/' + endpoint,
-          headers: { Authorization: 'Bearer ' + user.access_token},
+          headers: { Authorization: 'Bearer ' + user.accessToken},
           json: true,
         },
         (error, response, body) => {
             if(error){
-                reject(error)
+              reject(error)
             } else {
-
-                resolve(body);
-
+              resolve(body);
             }
         }
       );

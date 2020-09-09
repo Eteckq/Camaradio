@@ -1,16 +1,16 @@
 export interface IUser {
-    access_token: string;
-    refresh_token: string;
+    accessToken: string;
+    refreshToken: string;
 }
 
 class User implements IUser {
 
-    public access_token: string;
-    public refresh_token: string;
+    public accessToken: string;
+    public refreshToken: string;
 
-    constructor(access_token: string, refresh_token: string) {
-        this.access_token = access_token;
-        this.refresh_token = refresh_token;
+    constructor(accessToken: string, refreshToken: string) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
     }
 }
 
