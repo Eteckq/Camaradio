@@ -13,7 +13,7 @@ router.get('/login', async (req: Request, res: Response) => {
           querystring.stringify({
             response_type: 'code',
             client_id: config.client_id,
-            scope: 'user-read-private user-read-email',
+            scope: 'user-read-private user-read-email user-read-playback-state user-library-read user-top-read user-read-private playlist-read-private',
             redirect_uri: config.redirect_uri,
           })
       );
