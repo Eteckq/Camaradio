@@ -9,7 +9,7 @@ class View {
 
   displaySearchResult(searchResults) {
     $("#searchResultTable").empty();
-
+    // TODO Put 'id' in parent, and handle click event to get id (we shouldn't call 'app' on click)
     searchResults.forEach((searchResult) => {
       $("#searchResultTable").append(`
         <tr>
@@ -26,18 +26,11 @@ class View {
     $("#queueTable").empty();
 
     tracks.forEach((track) => {
-      // getTrackFromId(track.trackId).then((trackInfos) => {
-      //   getUserFromId(track.userId).then((userInfo) => {
       $("#queueTable").append(`
             <tr>
-              <td>${track.userId}</td>
+            <td>${track.name}</td>
+            <td>${track.artists[0].name}</td>
             </tr>`);
-      //   });
-      // });
     });
   }
-  /*
-              <td>${trackInfos.artists[0].name}</td>
-              <td>Added by ${userInfo.display_name}</td>
-              */
 }

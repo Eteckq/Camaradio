@@ -19,7 +19,11 @@ class SocketModel {
 
   // Functions
 
-  emit(event, data) {
-    this.socket.emit(event, data);
+  sendHello(data) {
+    this.socket.emit("hello", data);
+  }
+
+  sendAddTrack(data) {
+    this.socket.emit("addTrack", data);
   }
 }

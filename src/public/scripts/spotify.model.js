@@ -16,6 +16,15 @@ class SpotifyModel {
     return getApi("tracks/" + trackId);
   }
 
+  // To delete
+  getTracksFromTracksId(tracksId) {
+    console.log("getTracksFromTracksId");
+
+    return getApi("tracks", {
+      ids: tracksId.join(","),
+    });
+  }
+
   // USERS
 
   getMe() {
@@ -35,16 +44,6 @@ class SpotifyModel {
       console.log(error);
     });
   }
-}
-
-// To delete
-
-function getTracksFromTracksId(tracksId) {
-  console.log("getTracksFromTracksId");
-
-  return getApi("tracks", {
-    ids: tracksId.join(","),
-  });
 }
 
 function getApi(endpoint, data = null) {
