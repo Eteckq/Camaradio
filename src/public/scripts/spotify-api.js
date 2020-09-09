@@ -17,6 +17,20 @@ function search(searchValue) {
   });
 }
 
+function getTracksFromTracksId(tracksId) {
+  console.log("getTracksFromTracksId");
+  let accessToken = getCookie("access_token");
+  return $.get({
+    url: "https://api.spotify.com/v1/tracks",
+    headers: { Authorization: "Bearer " + accessToken },
+    data: {
+      ids: tracksId.join(","),
+    },
+  }).catch((error) => {
+    console.log(error);
+  });
+}
+
 function fetch(endpoint) {
   let accessToken = getAccessToken();
   return $.get({
