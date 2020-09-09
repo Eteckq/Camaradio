@@ -40,12 +40,8 @@ router.get('/callback', async (req: Request, res: Response) => {
     (error, response, body) => {
         // const user = new User(body.access_token, body.refresh_token)
 
-        const user = {
-          access_token: body.access_token,
-          refresh_token: body.refresh_token
-        }
-
-        res.cookie('user', user);
+        res.cookie('access_token', body.access_token);
+        res.cookie('refresh_token', body.refresh_token);
         res.redirect('/');
     }
   );

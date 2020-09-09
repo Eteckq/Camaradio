@@ -60,7 +60,7 @@ app.use(express.static(staticDir));
 
 // If the user is not connected, we send him to spotify login page
 app.get('*', (req: Request, res: Response) => {
-    const user = req.cookies.user
+    const user = req.cookies.access_token
     if(user){
         res.sendFile('index.html', {root: viewsDir});
     } else {

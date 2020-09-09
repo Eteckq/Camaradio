@@ -20,20 +20,20 @@
       $(function() {
 
         const socket = io();
-        console.log(socket);
 
         socket.on('connect', () => {
           getMe().then(data => {
+            console.log(data);
             socket.emit("hello", {
-              id: data.body.id,
-              name: data.body.display_name
+              id: data.id,
+              name: data.display_name
             })
           })
 
         });
 
         socket.on('disconnect', () => {
-          console.log(socket.connected); // false
+          console.log("disconnected");
         });
 
       });
