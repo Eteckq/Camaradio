@@ -2,6 +2,21 @@ function getMe() {
   return fetch("me");
 }
 
+function search(searchValue) {
+  console.log("search");
+  let accessToken = getCookie("access_token");
+  return $.get({
+    url: "https://api.spotify.com/v1/search",
+    headers: { Authorization: "Bearer " + accessToken },
+    data: {
+      q: searchValue,
+      type: "track",
+    },
+  }).catch((error) => {
+    console.log(error);
+  });
+}
+
 function fetch(endpoint) {
   let accessToken = getCookie("access_token");
   return $.get({

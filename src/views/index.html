@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>ExpressGeneratorTypeScriptApp</title>
-        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
-        
-    </head>
-    <body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>ExpressGeneratorTypeScriptApp</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <button id="getInfos">Get my infos</button>
 
-        <button id="getInfos">Get my infos</button>
+    <input
+      type="text"
+      id="searchInput"
+      name="name"
+      required
+      minlength="4"
+      maxlength="8"
+      size="10"
+    />
 
+    <button id="search">Chercher</button>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+  <script src="scripts/spotify-api.js"></script>
+  <script src="scripts/index.js"></script>
 
-    </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-    <script src="scripts/spotify-api.js"></script>
-    <script>
+  <script>
+    $(function () {
+      const socket = io();
 
-      $(function() {
-
-        const socket = io();
-
-        socket.on('connect', () => {
-          getMe().then(data => {
-            console.log(data);
-            socket.emit("hello", {
-              id: data.id,
-              name: data.display_name
-            })
-          })
-
+      socket.on("connect", () => {
+        getMe().then((data) => {
+          console.log(data);
+          socket.emit("hello", {
+            id: data.id,
+            name: data.display_name,
+          });
         });
-
-        socket.on('disconnect', () => {
-          console.log("disconnected");
-        });
-
       });
 
-    </script>
+      socket.on("disconnect", () => {
+        console.log("disconnected");
+      });
+    });
+  </script>
 </html>
-
-
