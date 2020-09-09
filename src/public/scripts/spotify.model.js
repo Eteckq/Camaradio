@@ -1,27 +1,3 @@
-function getMe() {
-  return getApi("me");
-}
-
-function search(searchValue) {
-  console.log("search");
-
-  return getApi("search", {
-    q: searchValue,
-    type: "track",
-  });
-}
-// TRACKS
-
-function getTrackFromId(trackId) {
-  return getApi("tracks/" + trackId);
-}
-
-// USERS
-
-function getUserFromId(userId) {
-  return getApi("users/" + userId);
-}
-
 // To delete
 
 function getTracksFromTracksId(tracksId) {
@@ -65,4 +41,32 @@ function getCookie(cname) {
     }
   }
   return "";
+}
+
+class SpotifyModel {
+  constructor() {}
+
+  getMe() {
+    return getApi("me");
+  }
+
+  getSearch(query) {
+    console.log("search");
+
+    return getApi("search", {
+      q: query,
+      type: "track",
+    });
+  }
+  // TRACKS
+
+  getTrackFromId(trackId) {
+    return getApi("tracks/" + trackId);
+  }
+
+  // USERS
+
+  getUserFromId(userId) {
+    return getApi("users/" + userId);
+  }
 }

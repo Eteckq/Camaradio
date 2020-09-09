@@ -58,11 +58,16 @@
   <script src="scripts/spotify.model.js"></script>
   <script src="scripts/view.js"></script>
   <script src="scripts/controller.js"></script>
-  <script src="scripts/index.js"></script>
+  <!-- <script src="scripts/index.js"></script> -->
 
   <script>
-    var socket;
+    const app = new Controller(new SpotifyModel(), new SocketModel(), new View())
+    $(function () {
 
-    // const app = new Controller(new SpotifyModel(), new SocketModel(), new View())
+      
+
+      
+      
+    });
   </script>
 </html>
