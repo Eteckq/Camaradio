@@ -16,7 +16,7 @@ class Controller {
   // DOM Events
 
   handleSearchButton = (search) => {
-    this.spotifyModel.getSearch(search).then((tracks) => {
+    this.spotifyModel.getTracksFromSearch(search).then((tracks) => {
       this.view.displaySearchResult(tracks.tracks.items);
     });
   };

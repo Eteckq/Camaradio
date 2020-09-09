@@ -1,11 +1,9 @@
 class SpotifyModel {
   constructor() {}
 
-  getMe() {
-    return getApi("me");
-  }
+  // TRACKS
 
-  getSearch(query) {
+  getTracksFromSearch(query) {
     console.log("search");
 
     return getApi("search", {
@@ -13,7 +11,6 @@ class SpotifyModel {
       type: "track",
     });
   }
-  // TRACKS
 
   getTrackFromId(trackId) {
     return getApi("tracks/" + trackId);
@@ -21,8 +18,22 @@ class SpotifyModel {
 
   // USERS
 
+  getMe() {
+    return getApi("me");
+  }
+
   getUserFromId(userId) {
     return getApi("users/" + userId);
+  }
+
+  // AUTH
+
+  refreshToken() {
+    return $.get({
+      url: "/api/auth/refresh",
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 }
 

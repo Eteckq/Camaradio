@@ -2,9 +2,8 @@ class View {
   constructor() {}
 
   bindSearchButton(handler) {
-    $("#search").click(async function () {
-      const searchValue = $("#searchInput").val();
-      handler(searchValue);
+    $("#search").click(() => {
+      handler($("#searchInput").val());
     });
   }
 
