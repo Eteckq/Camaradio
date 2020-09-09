@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
 import request from 'request'
 import querystring from 'querystring'
-import IUser from '@entities/User'
+import User from '@entities/User'
 
 const router = Router();
 
@@ -10,7 +10,7 @@ router.get('/me', async (req: Request, res: Response) => {
 });
 
 function fetch(endpoint: string, req: Request, res: Response) {
-  const user:IUser = req.cookies.user
+  const user:User = req.cookies.user
 
     return new Promise((resolve, reject) => {
       request.get(

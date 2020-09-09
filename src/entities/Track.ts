@@ -1,19 +1,14 @@
-import { IUser } from './User';
+import { User } from './User';
 
-export interface ITrack {
-    id: string;
-    addedBy: IUser
-}
-
-class Track implements ITrack {
+export class Track {
 
     public id: string;
-    public addedBy: IUser;
+    public addedBy: User;
 
-    constructor(id: string, addedBy: IUser) {
+    constructor(id: string, addedBy: User) {
         this.id = id
         this.addedBy = addedBy
     }
 }
 
-export default User;
+export default Track;

@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
 import request from 'request'
 import querystring from 'querystring'
-import IUser from '@entities/User'
+import User from '@entities/User'
 
 import config from '../config/config'
 
@@ -38,7 +38,12 @@ router.get('/callback', async (req: Request, res: Response) => {
       json: true,
     },
     (error, response, body) => {
-        const user = new IUser(body.access_token, body.refresh_token)
+        // const user = new User(body.access_token, body.refresh_token)
+
+        const user = {
+          access_token: body.access_token,
+          refresh_token: body.refresh_token
+        }
 
         res.cookie('user', user);
         res.redirect('/');

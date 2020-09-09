@@ -1,9 +1,4 @@
-export interface IUser {
-    accessToken: string;
-    refreshToken: string;
-}
-
-class User implements IUser {
+export class User {
 
     public accessToken: string;
     public refreshToken: string;
