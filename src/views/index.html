@@ -54,35 +54,15 @@
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-  <script src="scripts/spotify-api.js"></script>
+  <script src="scripts/socket.model.js"></script>
+  <script src="scripts/spotify.model.js"></script>
+  <script src="scripts/view.js"></script>
+  <script src="scripts/controller.js"></script>
   <script src="scripts/index.js"></script>
 
   <script>
-    const socket = io();
+    var socket;
 
-    $(function () {
-      socket.on("connect", () => {
-        getMe().then((data) => {
-          console.log(data);
-          socket.emit("hello", {
-            id: data.id,
-            name: data.display_name,
-          });
-        });
-      });
-
-      socket.on("disconnect", () => {
-        console.log("disconnected");
-      });
-
-      socket.on("updateTrackList", (data) => {
-        tracksId = data;
-        console.log(tracksId);
-        getTracksFromTracksId(tracksId).then((result) => {
-          console.log(result);
-          displayQueueTable(result.tracks);
-        });
-      });
-    });
+    // const app = new Controller(new SpotifyModel(), new SocketModel(), new View())
   </script>
 </html>

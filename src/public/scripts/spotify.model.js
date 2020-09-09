@@ -1,41 +1,43 @@
 function getMe() {
-  return fetch("me");
+  return getApi("me");
 }
 
 function search(searchValue) {
   console.log("search");
-  let accessToken = getCookie("access_token");
-  return $.get({
-    url: "https://api.spotify.com/v1/search",
-    headers: { Authorization: "Bearer " + accessToken },
-    data: {
-      q: searchValue,
-      type: "track",
-    },
-  }).catch((error) => {
-    console.log(error);
+
+  return getApi("search", {
+    q: searchValue,
+    type: "track",
   });
 }
+// TRACKS
+
+function getTrackFromId(trackId) {
+  return getApi("tracks/" + trackId);
+}
+
+// USERS
+
+function getUserFromId(userId) {
+  return getApi("users/" + userId);
+}
+
+// To delete
 
 function getTracksFromTracksId(tracksId) {
   console.log("getTracksFromTracksId");
-  let accessToken = getCookie("access_token");
-  return $.get({
-    url: "https://api.spotify.com/v1/tracks",
-    headers: { Authorization: "Bearer " + accessToken },
-    data: {
-      ids: tracksId.join(","),
-    },
-  }).catch((error) => {
-    console.log(error);
+
+  return getApi("tracks", {
+    ids: tracksId.join(","),
   });
 }
 
-function fetch(endpoint) {
+function getApi(endpoint, data = null) {
   let accessToken = getAccessToken();
   return $.get({
     url: "https://api.spotify.com/v1/" + endpoint,
     headers: { Authorization: "Bearer " + accessToken },
+    data: data,
   }).catch((error) => {
     console.log(error);
   });

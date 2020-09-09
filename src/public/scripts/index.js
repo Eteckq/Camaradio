@@ -19,15 +19,20 @@ function displaySearchResult(searchResults) {
   });
 }
 
-function displayQueueTable(tracks) {
+function displayQueueTableFromTracks(tracks) {
   $("#queueTable").empty();
 
   tracks.forEach((track) => {
-    $("#queueTable").append(`
-      <tr>
-        <td>${track.name}</td>
-        <td>${track.artists[0].name}</td>
-      </tr>`);
+    getTrackFromId(track.trackId).then((trackInfos) => {
+      getUserFromId(track.userId).then((userInfo) => {
+        $("#queueTable").append(`
+          <tr>
+            <td>${trackInfos.name}</td>
+            <td>${trackInfos.artists[0].name}</td>
+            <td>Added by ${userInfo.display_name}</td>
+          </tr>`);
+      });
+    });
   });
 }
 

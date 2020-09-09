@@ -11,12 +11,16 @@ export default function initSockets(io: Server){
 
         client.on('hello', data => {
             userSpotifyId = data.id
+            client.emit('updateTrackList', queue.getTracks())
         })
 
         client.on('addTrack', data => {
-            queue.addTrack(data.trackId, userSpotifyId)
-
-            io.emit('updateTrackList', queue.getTracksId())
+            queue.addTrack(data.trackId, userSpotifyId).then(track => {
+                io.emit('updateTrackList', queue.getTracks())
+            }).catch( error => {
+                console.log(error);
+                client.emit('notify', error)
+            })
         })
 
         client.on('disconnect', () => {
