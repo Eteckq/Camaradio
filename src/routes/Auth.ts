@@ -1,7 +1,6 @@
 import { Request, Response, Router } from 'express';
 import request from 'request'
 import querystring from 'querystring'
-import User from '@entities/User'
 
 import config from '../config/config'
 

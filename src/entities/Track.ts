@@ -1,13 +1,11 @@
-import { User } from './User';
-
 export class Track {
 
-    public id: string;
-    public addedBy: User;
+    public trackId: string;
+    public userId: string;
 
-    constructor(id: string, addedBy: User) {
-        this.id = id
-        this.addedBy = addedBy
+    constructor(trackId: string, userId: string) {
+        this.trackId = trackId
+        this.userId = userId
     }
 }
 

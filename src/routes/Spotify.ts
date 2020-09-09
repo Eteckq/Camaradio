@@ -1,7 +1,6 @@
 import { Request, Response, Router } from 'express';
 import request from 'request'
 import querystring from 'querystring'
-import User from '@entities/User'
 
 const router = Router();
 
@@ -10,13 +9,13 @@ router.get('/me', async (req: Request, res: Response) => {
 });
 
 function fetch(endpoint: string, req: Request, res: Response) {
-  const user:User = req.cookies.user
+  const accessToken = req.cookies.user
 
     return new Promise((resolve, reject) => {
       request.get(
         {
           url: 'https://api.spotify.com/v1/' + endpoint,
-          headers: { Authorization: 'Bearer ' + user.accessToken},
+          headers: { Authorization: 'Bearer ' + accessToken},
           json: true,
         },
         (error, response, body) => {
