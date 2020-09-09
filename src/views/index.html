@@ -1,56 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>ExpressGeneratorTypeScriptApp</title>
-        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
-        
-    </head>
-    <body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>ExpressGeneratorTypeScriptApp</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <button id="getInfos">Get my infos</button>
 
-        <h1>Hello, <span id="name"></span></h1>
+    <input
+      type="text"
+      id="searchInput"
+      name="name"
+      required
+      minlength="4"
+      maxlength="8"
+      size="10"
+    />
 
+    <button id="search">Chercher</button>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+  <script src="scripts/spotify-api.js"></script>
+  <script src="scripts/index.js"></script>
 
-        <input type="text" id="endpoint">
-        <button id="clickBtnEndpoint">test !</button>
-        <textarea cols="200" rows="50"></textarea>
+  <script>
+    $(function () {
+      const socket = io();
 
-
-    </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-    <script src="scripts/spotify-api.js"></script>
-    <script>
-
-      $(function() {
-
-        const socket = io();
-
-        socket.on('connect', () => {
-          getMe().then(data => {
-            $("#name").html(data.display_name)
-            socket.emit("hello", {
-              id: data.id,
-              name: data.display_name
-            })
-          })
-
+      socket.on("connect", () => {
+        getMe().then((data) => {
+          console.log(data);
+          socket.emit("hello", {
+            id: data.id,
+            name: data.display_name,
+          });
         });
-
-        socket.on('disconnect', () => {
-          console.log("disconnected");
-        });
-
       });
 
-      $("#clickBtnEndpoint").click(()=>{
-        fetch($("#endpoint").val()).then(data => {
-          console.log(data);
-        })
-      })
-
-
-    </script>
+      socket.on("disconnect", () => {
+        console.log("disconnected");
+      });
+    });
+  </script>
 </html>
-
-
