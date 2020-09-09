@@ -3,13 +3,21 @@ function getMe() {
 }
 
 function fetch(endpoint) {
-  let accessToken = getCookie("access_token");
+  let accessToken = getAccessToken();
   return $.get({
     url: "https://api.spotify.com/v1/" + endpoint,
     headers: { Authorization: "Bearer " + accessToken },
   }).catch((error) => {
     console.log(error);
   });
+}
+
+function getAccessToken() {
+  return getCookie("access_token");
+}
+
+function getRefreshToken() {
+  return getCookie("refresh_token");
 }
 
 function getCookie(cname) {

@@ -8,7 +8,7 @@
     </head>
     <body>
 
-        <button id="getInfos">Get my infos</button>
+        <h1>Hello, <span id="name"></span></h1>
 
 
     </body>
@@ -23,6 +23,7 @@
 
         socket.on('connect', () => {
           getMe().then(data => {
+            $("#name").html(data.display_name)
             console.log(data);
             socket.emit("hello", {
               id: data.id,
