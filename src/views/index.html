@@ -24,13 +24,10 @@
 
         socket.on('connect', () => {
           getMe().then(data => {
-            let sending = {
-              id: data.id,
-              name: data.display_name
-            };
-            console.log(sending);
-            if(sending)
-            socket.emit("hello", sending)
+            socket.emit("hello", {
+              id: data.body.id,
+              name: data.body.display_name
+            })
           })
 
         });

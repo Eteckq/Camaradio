@@ -1,10 +1,5 @@
 function getMe() {
-  return new Promise((resolve, reject) => {
-    fetch("/api/spotify/me").then((data) => {
-      console.log(data);
-      resolve(data);
-    });
-  });
+  return fetch("/api/spotify/me");
 }
 
 function fetch(endpoint) {
