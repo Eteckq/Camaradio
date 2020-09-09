@@ -56,7 +56,12 @@ app.set('views', viewsDir);
 const staticDir = path.join(__dirname, 'public');
 app.use(express.static(staticDir));
 app.get('*', (req: Request, res: Response) => {
-    res.sendFile('index.html', {root: viewsDir});
+    const user = req.cookies.user
+    if(user){
+        res.sendFile('index.html', {root: viewsDir});
+    } else {
+        res.redirect('/api/auth/login')
+    }
 });
 
 // Export express instance

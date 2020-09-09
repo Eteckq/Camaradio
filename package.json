@@ -25,6 +25,7 @@
     "@server": "dist/Server"
   },
   "dependencies": {
+    "@types/request": "^2.48.5",
     "command-line-args": "^5.1.1",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
@@ -35,6 +36,8 @@
     "jsonfile": "^6.0.1",
     "module-alias": "^2.2.2",
     "morgan": "^1.10.0",
+    "querystring": "^0.2.0",
+    "request": "^2.88.2",
     "tslib": "^2.0.1",
     "winston": "^3.3.3"
   },

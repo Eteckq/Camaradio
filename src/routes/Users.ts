@@ -7,61 +7,61 @@ import { paramMissingError } from '@shared/constants';
 
 // Init shared
 const router = Router();
-const userDao = new UserDao();
+// const userDao = new UserDao();
 
 
-/******************************************************************************
- *                      Get All Users - "GET /api/users/all"
- ******************************************************************************/
+// /******************************************************************************
+//  *                      Get All Users - "GET /api/users/all"
+//  ******************************************************************************/
 
-router.get('/all', async (req: Request, res: Response) => {
-    const users = await userDao.getAll();
-    return res.status(OK).json({users});
-});
-
-
-/******************************************************************************
- *                       Add One - "POST /api/users/add"
- ******************************************************************************/
-
-router.post('/add', async (req: Request, res: Response) => {
-    const { user } = req.body;
-    if (!user) {
-        return res.status(BAD_REQUEST).json({
-            error: paramMissingError,
-        });
-    }
-    await userDao.add(user);
-    return res.status(CREATED).end();
-});
+// router.get('/all', async (req: Request, res: Response) => {
+//     const users = await userDao.getAll();
+//     return res.status(OK).json({users});
+// });
 
 
-/******************************************************************************
- *                       Update - "PUT /api/users/update"
- ******************************************************************************/
+// /******************************************************************************
+//  *                       Add One - "POST /api/users/add"
+//  ******************************************************************************/
 
-router.put('/update', async (req: Request, res: Response) => {
-    const { user } = req.body;
-    if (!user) {
-        return res.status(BAD_REQUEST).json({
-            error: paramMissingError,
-        });
-    }
-    user.id = Number(user.id);
-    await userDao.update(user);
-    return res.status(OK).end();
-});
+// router.post('/add', async (req: Request, res: Response) => {
+//     const { user } = req.body;
+//     if (!user) {
+//         return res.status(BAD_REQUEST).json({
+//             error: paramMissingError,
+//         });
+//     }
+//     await userDao.add(user);
+//     return res.status(CREATED).end();
+// });
 
 
-/******************************************************************************
- *                    Delete - "DELETE /api/users/delete/:id"
- ******************************************************************************/
+// /******************************************************************************
+//  *                       Update - "PUT /api/users/update"
+//  ******************************************************************************/
 
-router.delete('/delete/:id', async (req: Request, res: Response) => {
-    const { id } = req.params as ParamsDictionary;
-    await userDao.delete(Number(id));
-    return res.status(OK).end();
-});
+// router.put('/update', async (req: Request, res: Response) => {
+//     const { user } = req.body;
+//     if (!user) {
+//         return res.status(BAD_REQUEST).json({
+//             error: paramMissingError,
+//         });
+//     }
+//     user.id = Number(user.id);
+//     await userDao.update(user);
+//     return res.status(OK).end();
+// });
+
+
+// /******************************************************************************
+//  *                    Delete - "DELETE /api/users/delete/:id"
+//  ******************************************************************************/
+
+// router.delete('/delete/:id', async (req: Request, res: Response) => {
+//     const { id } = req.params as ParamsDictionary;
+//     await userDao.delete(Number(id));
+//     return res.status(OK).end();
+// });
 
 
 /******************************************************************************

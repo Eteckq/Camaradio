@@ -1,25 +1,16 @@
 export interface IUser {
-    id: number;
-    name: string;
-    email: string;
+    access_token: string;
+    refresh_token: string;
 }
 
 class User implements IUser {
 
-    public id: number;
-    public name: string;
-    public email: string;
+    public access_token: string;
+    public refresh_token: string;
 
-    constructor(nameOrUser: string | IUser, email?: string, id?: number) {
-        if (typeof nameOrUser === 'string') {
-            this.name = nameOrUser;
-            this.email = email || '';
-            this.id = id || -1;
-        } else {
-            this.name = nameOrUser.name;
-            this.email = nameOrUser.email;
-            this.id = nameOrUser.id;
-        }
+    constructor(access_token: string, refresh_token: string) {
+            this.access_token = access_token;
+            this.refresh_token = refresh_token;
     }
 }
 
