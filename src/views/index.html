@@ -58,9 +58,9 @@
   <script src="scripts/index.js"></script>
 
   <script>
-    $(function () {
-      const socket = io();
+    const socket = io();
 
+    $(function () {
       socket.on("connect", () => {
         getMe().then((data) => {
           console.log(data);
@@ -73,6 +73,15 @@
 
       socket.on("disconnect", () => {
         console.log("disconnected");
+      });
+
+      socket.on("updateTrackList", (data) => {
+        tracksId = data;
+        console.log(tracksId);
+        getTracksFromTracksId(tracksId).then((result) => {
+          console.log(result);
+          displayQueueTable(result.tracks);
+        });
       });
     });
   </script>

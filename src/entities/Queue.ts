@@ -1,18 +1,19 @@
-import Track from '@entities/Track'
+import Track from "@entities/Track";
 
 export default class Queue {
-    queue: Track[]
+  queue: Track[];
 
-    constructor(){
-        this.queue = []
-    }
+  constructor() {
+    this.queue = [];
+  }
 
-    addTrack(trackId: string, userId: string){
-        this.queue.push(new Track(trackId, userId))
-    }
+  addTrack(trackId: string, userId: string) {
+    console.log(this.queue);
 
-    getTracksId(){
-        return this.queue.map(track => track.trackId)
-    }
+    this.queue.push(new Track(trackId, userId));
+  }
 
+  getTracksId() {
+    return this.queue.map((track) => track.trackId);
+  }
 }
