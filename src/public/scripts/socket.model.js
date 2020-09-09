@@ -1,27 +1,25 @@
 class SocketModel {
   constructor() {
     this.socket = io();
+  }
 
-    this.socket.on("connect", () => {
-      app.spotifyModel.getMe().then((data) => {
-        this.socket.emit("hello", {
-          id: data.id,
-          name: data.display_name,
-        });
-      });
-    });
+  // BIND EVENTS
 
-    this.socket.on("disconnect", () => {
-      console.log("disconnected");
-    });
+  socketConnectEvent(handler) {
+    this.socket.on("connect", handler);
+  }
 
-    this.socket.on("updateTrackList", (tracks) => {
-      console.log("updateTrackList", tracks);
-      if (tracks.length === 0) {
-        return;
-      }
+  socketDisconnectEvent(handler) {
+    this.socket.on("disconnect", handler);
+  }
 
-      app.view.displayQueueTableFromTracks(tracks);
-    });
+  socketUpdateTrackListEvent(handler) {
+    this.socket.on("updateTrackList", handler);
+  }
+
+  // Functions
+
+  emit(event, data) {
+    this.socket.emit(event, data);
   }
 }
