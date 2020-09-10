@@ -35,3 +35,16 @@ function addTrackToQueue(trackId) {
   console.log("at click");
   socket.emit("addTrack", { trackId: trackId });
 }
+
+$("#playBtn").click(async function () {
+  play();
+});
+
+$("#pauseBtn").click(async function () {
+  pause();
+});
+
+$("#currentTrackBtn").click(async function () {
+  const result = await getCurrentTrack();
+  console.log(result);
+});
