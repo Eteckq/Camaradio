@@ -2,8 +2,9 @@ import socket, { Server, Socket } from 'socket.io';
 
 import User from "@entities/User"
 import Queue from '@entities/Queue'
+import Playlist from '@entities/Playlist'
 
-const queue = new Queue()
+const playlist = new Playlist()
 const users: User[] = []
 
 export default function initSockets(io: Server){
@@ -15,15 +16,15 @@ export default function initSockets(io: Server){
             user = data.user
             users.push()
 
-            client.emit('updateTrackList', queue.getQueueItems())
+            client.emit('updateTrackList', playlist.getQueueItems())
         })
 
         client.on('addTrack', data => {
-            queue.addTrack(data.track, user).then(queueItem => {
-                io.emit('updateTrackList', queue.getQueueItems())
+            playlist.addTrack(data.track, user).then(queueItem => {
+                io.emit('updateTrackList', playlist.getQueueItems())
 
                 setTimeout(() => {
-                    io.emit('updateTrackList', queue.getQueueItems())
+                    io.emit('updateTrackList', playlist.getQueueItems())
                     
                     io.emit('currentTrackChange', {
                         queueItem: queueItem,

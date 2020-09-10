@@ -10,4 +10,12 @@ export default class Playlist {
     constructor() {
         this.queue = new Queue()
     }
+
+    getQueueItems(){
+        return this.queue.getQueueItems()
+    }
+
+    addTrack(track: Track, user: User){
+        return this.queue.addTrack(track, user)
+    }
 }
