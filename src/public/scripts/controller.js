@@ -23,11 +23,11 @@ class Controller {
   };
 
   handlePlayButton = (search) => {
-    this.spotifyModel.startResumePlayback();
+    this.model.spotify.startResumePlayback();
   };
 
   handlePauseButton = (search) => {
-    this.spotifyModel.pausePlayback();
+    this.model.spotify.pausePlayback();
   };
 
   // SOCKET Events
