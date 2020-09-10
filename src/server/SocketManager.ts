@@ -8,15 +8,11 @@ export default class SocketManager {
 
     io: Server
 
-    // Controller
-    playlist = new Playlist()
-    users: User[] = []
+    
 
     constructor(io: Server){
         this.io = io
-    }
 
-    init(){
         this.io.on('connection', (client: Socket) => {
             console.log('new client');
             let user: User;
@@ -26,20 +22,26 @@ export default class SocketManager {
                 this.users.push()
 
                 client.emit('updateTrackList', this.playlist.getQueueItems())
+
+                if(this.playlist.getCurrentQueueItem() !== undefined){
+                
+                    client.emit('currentTrackChange', {
+                        queueItem: this.playlist.getCurrentQueueItem(),
+                        position_ms: this.playlist.getActualTrackTimestamp()
+                    })
+                }
             })
 
             client.on('addTrack', data => {
                 this.playlist.addTrack(data.track, user).then(queueItem => {
                     this.io.emit('updateTrackList', this.playlist.getQueueItems())
 
-                    setTimeout(() => {
-                        this.io.emit('updateTrackList', this.playlist.getQueueItems())
-
-                        this.io.emit('currentTrackChange', {
-                            queueItem,
-                            position_ms: 210
+                    if(this.playlist.getCurrentQueueItem() !== undefined && this.playlist.getQueueItems().length === 0){
+                        client.emit('currentTrackChange', {
+                            queueItem: this.playlist.getCurrentQueueItem(),
+                            position_ms: 0
                         })
-                    }, 2000);
+                    }
 
                 }).catch( error => {
                     console.log(error);
@@ -54,4 +56,5 @@ export default class SocketManager {
             });
         });
     }
+
 }

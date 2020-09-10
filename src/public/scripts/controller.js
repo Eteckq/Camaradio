@@ -61,9 +61,8 @@ class Controller {
     let position_ms = data.position_ms;
 
     this.service.spotify.addTrackToQueue(track.uri).then((res) => {
-      this.service.spotify.seekToTrackPosition(position_ms);
-
       this.service.spotify.nextTrack().then((res) => {
+        this.service.spotify.seekToTrackPosition(position_ms);
         this.service.spotify.startResumePlayback();
       });
     });
