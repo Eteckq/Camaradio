@@ -1,4 +1,4 @@
-class SocketModel {
+class SocketService {
   constructor() {
     this.socket = io();
   }

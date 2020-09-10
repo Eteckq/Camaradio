@@ -1,15 +1,15 @@
 class Controller {
-  constructor(model, view) {
-    this.model = model;
+  constructor(service, view) {
+    this.service = service;
     this.view = view;
 
     this.view.bindSearchButton(this.handleSearchButton);
     this.view.bindPlayBtn(this.handlePlayButton);
     this.view.bindPauseBtn(this.handlePauseButton);
 
-    this.model.socket.socketUpdateTrackListEvent(this.handleUpdateTrackList);
-    this.model.socket.socketConnectEvent(this.handleConnect);
-    this.model.socket.socketDisconnectEvent(this.handleDisconnect);
+    this.service.socket.socketUpdateTrackListEvent(this.handleUpdateTrackList);
+    this.service.socket.socketConnectEvent(this.handleConnect);
+    this.service.socket.socketDisconnectEvent(this.handleDisconnect);
   }
 
   ///// HANDLERS /////
@@ -17,17 +17,17 @@ class Controller {
   // DOM Events
 
   handleSearchButton = (search) => {
-    this.model.spotify.getTracksFromSearch(search).then((tracks) => {
+    this.service.spotify.getTracksFromSearch(search).then((tracks) => {
       this.view.displaySearchResult(tracks.tracks.items);
     });
   };
 
   handlePlayButton = (search) => {
-    this.model.spotify.startResumePlayback();
+    this.service.spotify.startResumePlayback();
   };
 
   handlePauseButton = (search) => {
-    this.model.spotify.pausePlayback();
+    this.service.spotify.pausePlayback();
   };
 
   // SOCKET Events
@@ -37,7 +37,7 @@ class Controller {
       return;
     }
 
-    this.model.spotify
+    this.service.spotify
       .getTracksFromTracksId(tracks.map((track) => track.trackId))
       .then((result) => {
         console.log("updateTrackList", result);
@@ -46,8 +46,8 @@ class Controller {
   };
 
   handleConnect = (data) => {
-    this.model.spotify.getMe().then((data) => {
-      this.model.socket.sendHello({
+    this.service.spotify.getMe().then((data) => {
+      this.service.socket.sendHello({
         id: data.id,
         name: data.display_name,
       });
@@ -62,6 +62,6 @@ class Controller {
 
   addTrackToQueue(trackId) {
     console.log("at click");
-    this.model.socket.sendAddTrack({ trackId: trackId });
+    this.service.socket.sendAddTrack({ trackId: trackId });
   }
 }

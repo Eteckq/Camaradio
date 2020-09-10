@@ -1,4 +1,4 @@
-class SpotifyModel {
+class SpotifyService {
   constructor() {}
 
   // TRACKS
