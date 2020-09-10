@@ -43,11 +43,10 @@ class Controller {
     this.view.displayQueueTableFromTracks(tracks);
   };
 
-  handleConnect = (data) => {
-    this.service.spotify.getMe().then((data) => {
+  handleConnect = () => {
+    this.service.spotify.getMe().then((user) => {
       this.service.socket.sendHello({
-        id: data.id,
-        name: data.display_name,
+        user: user,
       });
     });
   };

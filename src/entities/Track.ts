@@ -1,12 +1,7 @@
-import ISpotifyTrack from "@entities/interfaces/ISpotifyTrack"
-
-export class Track {
-
-    public data: ISpotifyTrack;
-
-    constructor(data: ISpotifyTrack) {
-        this.data = data
-    }
+export class Track{
+    id: string = ""
+    name: string = ""
+    uri: string = ""
 }
 
 export default Track;
