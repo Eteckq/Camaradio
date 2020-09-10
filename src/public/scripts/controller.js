@@ -1,14 +1,13 @@
 class Controller {
-  constructor(spotifyModel, socketModel, view) {
-    this.spotifyModel = spotifyModel;
-    this.socketModel = socketModel;
+  constructor(model, view) {
+    this.model = model;
     this.view = view;
 
     this.view.bindSearchButton(this.handleSearchButton);
 
-    this.socketModel.socketUpdateTrackListEvent(this.handleUpdateTrackList);
-    this.socketModel.socketConnectEvent(this.handleConnect);
-    this.socketModel.socketDisconnectEvent(this.handleDisconnect);
+    this.model.socket.socketUpdateTrackListEvent(this.handleUpdateTrackList);
+    this.model.socket.socketConnectEvent(this.handleConnect);
+    this.model.socket.socketDisconnectEvent(this.handleDisconnect);
   }
 
   ///// HANDLERS /////
@@ -16,7 +15,7 @@ class Controller {
   // DOM Events
 
   handleSearchButton = (search) => {
-    this.spotifyModel.getTracksFromSearch(search).then((tracks) => {
+    this.model.spotify.getTracksFromSearch(search).then((tracks) => {
       this.view.displaySearchResult(tracks.tracks.items);
     });
   };
@@ -28,7 +27,7 @@ class Controller {
       return;
     }
 
-    this.spotifyModel
+    this.model.spotify
       .getTracksFromTracksId(tracks.map((track) => track.trackId))
       .then((result) => {
         console.log("updateTrackList", result);
@@ -37,8 +36,8 @@ class Controller {
   };
 
   handleConnect = (data) => {
-    this.spotifyModel.getMe().then((data) => {
-      this.socketModel.sendHello({
+    this.model.spotify.getMe().then((data) => {
+      this.model.socket.sendHello({
         id: data.id,
         name: data.display_name,
       });
@@ -53,6 +52,6 @@ class Controller {
 
   addTrackToQueue(trackId) {
     console.log("at click");
-    this.socketModel.sendAddTrack({ trackId: trackId });
+    this.model.socket.sendAddTrack({ trackId: trackId });
   }
 }
