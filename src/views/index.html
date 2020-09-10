@@ -70,7 +70,10 @@
     var app;
 
     $(function () {
-      app = new Controller(new Model(new SpotifyModel(), new SocketModel()), new View())
+      app = new Controller(
+        new Model(new SpotifyModel(), new SocketModel()),
+        new View()
+      );
     });
 
     console.log("init play back");
