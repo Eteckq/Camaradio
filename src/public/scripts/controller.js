@@ -76,7 +76,6 @@ class Controller {
   ///// Functions /////
 
   addTrackToQueue(trackId) {
-    console.log("at click");
     this.service.socket.sendAddTrack({ trackId: trackId });
   }
 }

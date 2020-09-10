@@ -18,6 +18,7 @@ class SocketService {
   }
 
   socketCurrentTrackChange(handler) {
+    console.log("socketCurrentTrackChange");
     this.socket.on("currentTrackChange", handler);
   }
 
