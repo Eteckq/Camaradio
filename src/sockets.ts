@@ -1,21 +1,25 @@
 import socket, { Server, Socket } from 'socket.io';
 
+import User from "@entities/User"
 import Queue from '@entities/Queue'
 
 const queue = new Queue()
+const users: User[] = []
 
 export default function initSockets(io: Server){
     io.on('connection', (client: Socket) => {
         console.log('new client');
-        let userSpotifyId: string;
+        let user: User;
 
         client.on('hello', data => {
-            userSpotifyId = data.id
+            user = new User(data.id)
+            users.push()
+
             client.emit('updateTrackList', queue.getTracks())
         })
 
         client.on('addTrack', data => {
-            queue.addTrack(data.trackId, userSpotifyId).then(track => {
+            queue.addTrack(data.trackId, user.id).then(track => {
                 io.emit('updateTrackList', queue.getTracks())
             }).catch( error => {
                 console.log(error);
