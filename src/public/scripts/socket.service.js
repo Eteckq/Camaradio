@@ -17,6 +17,10 @@ class SocketService {
     this.socket.on("updateTrackList", handler);
   }
 
+  socketCurrentTrackChange(handler) {
+    this.socket.on("currentTrackChange", handler);
+  }
+
   // Functions
 
   sendHello(data) {

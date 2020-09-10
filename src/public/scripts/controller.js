@@ -10,6 +10,7 @@ class Controller {
     this.service.socket.socketUpdateTrackListEvent(this.handleUpdateTrackList);
     this.service.socket.socketConnectEvent(this.handleConnect);
     this.service.socket.socketDisconnectEvent(this.handleDisconnect);
+    this.service.socket.socketCurrentTrackChange(this.handleCurrentTrackChange);
   }
 
   ///// HANDLERS /////
@@ -53,6 +54,20 @@ class Controller {
 
   handleDisconnect = () => {
     console.log("disconnected");
+  };
+
+  handleCurrentTrackChange = async (data) => {
+    console.log("current track change");
+
+    await this.service.spotify.addTrackToQueue(data.track.uri);
+
+    console.log("after addTrackToQueue");
+
+    await this.service.spotify.seekToTrackPosition(data.position_ms);
+
+    console.log("after seekToTrackPosition");
+
+    this.view.displayCurrentPlayedTrack();
   };
 
   ///// Functions /////

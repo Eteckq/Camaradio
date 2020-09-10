@@ -34,6 +34,17 @@ class View {
     });
   }
 
+  displayCurrentPlayedTrack(track) {
+    console.log("displayCurrentPlayedTrack");
+    $("#currentTrack").empty();
+
+    $("#currentTrack").append(`
+            <tr>
+            <td>${track.name}</td>
+            <td>${track.artists[0].name}</td>
+            </tr>`);
+  }
+
   // PLAYER
 
   bindPlayBtn(handler) {
