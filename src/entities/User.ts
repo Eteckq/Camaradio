@@ -1,9 +1,11 @@
+import ISpotifyUser from "@entities/interfaces/ISpotifyUser"
+
 export class User {
 
-    public id: string;
+    public data: ISpotifyUser;
 
-    constructor(id: string) {
-        this.id = id
+    constructor(data: ISpotifyUser) {
+        this.data = data
     }
 }
 

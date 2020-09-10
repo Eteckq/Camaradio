@@ -23,7 +23,9 @@ class SocketService {
     this.socket.emit("hello", data);
   }
 
-  sendAddTrack(data) {
-    this.socket.emit("addTrack", data);
+  sendAddTrack(track) {
+    this.socket.emit("addTrack", {
+      track: track,
+    });
   }
 }

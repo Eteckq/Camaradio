@@ -28,8 +28,8 @@ class View {
     tracks.forEach((track) => {
       $("#queueTable").append(`
             <tr>
-            <td>${track.name}</td>
-            <td>${track.artists[0].name}</td>
+            <td>${track.track.data.name}</td>
+            <td>${track.track.data.artists[0].name}</td>
             </tr>`);
     });
   }

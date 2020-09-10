@@ -15,16 +15,26 @@ export default function initSockets(io: Server){
             user = new User(data.id)
             users.push()
 
-            client.emit('updateTrackList', queue.getTracks())
+            client.emit('updateTrackList', queue.getQueueItems())
         })
 
         client.on('addTrack', data => {
-            queue.addTrack(data.trackId, user.id).then(track => {
-                io.emit('updateTrackList', queue.getTracks())
+            queue.addTrack(data.track, user).then(track => {
+                io.emit('updateTrackList', queue.getQueueItems())
+
+                setTimeout(() => {
+                    io.emit('currentTrackChange', {
+                        track: track,
+                        position_ms: 210
+                    })
+                }, 2000);
+
             }).catch( error => {
                 console.log(error);
                 client.emit('notify', error)
             })
+
+            
         })
 
         client.on('disconnect', () => {
