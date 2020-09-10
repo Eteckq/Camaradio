@@ -1,9 +1,9 @@
 import './LoadEnv'; // Must be the first import
 import app from '@server';
-import initSockets from './sockets'
 import logger from '@shared/Logger';
 import http from 'http';
 import socket from 'socket.io';
+import initSockets from './sockets'
 
 const server = new http.Server(app);
 const io = socket(server);

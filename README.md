@@ -17,6 +17,5 @@ addTrack
 ### on:
 
 updateTrackList
-{
-    tracksId: string[] = Tableau des musiques de la queue
-}
+
+string[] = Tableau des musiques de la queue

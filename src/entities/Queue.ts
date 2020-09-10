@@ -1,19 +1,30 @@
-import Track from "@entities/Track";
+import Track from '@entities/Track';
 
 export default class Queue {
-  queue: Track[];
+  tracks: Track[];
 
   constructor() {
-    this.queue = [];
+    this.tracks = [];
   }
 
   addTrack(trackId: string, userId: string) {
-    console.log(this.queue);
-
-    this.queue.push(new Track(trackId, userId));
+    return new Promise((resolve, reject) => {
+      if(this.trackExist(trackId)){
+        reject('This track is already in queue')
+      } else {
+        const track: Track = new Track(trackId, userId)
+        this.tracks.push(track);
+        resolve(track)
+      }
+    })
   }
 
-  getTracksId() {
-    return this.queue.map((track) => track.trackId);
+  getTracks() {
+    return this.tracks;
+  }
+
+  private trackExist(trackId: string): boolean{
+    return this.tracks.some(track => track.trackId === trackId)
+
   }
 }
