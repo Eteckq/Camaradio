@@ -1,4 +1,4 @@
-class SpotifyModel {
+class SpotifyService {
   constructor() {}
 
   // TRACKS
@@ -48,29 +48,60 @@ class SpotifyModel {
   // PLAYER
 
   startResumePlayback() {
-    return getApi("me/player/play");
+    return putApi("me/player/play");
   }
 
   pausePlayback() {
-    return getApi("me/player/pause");
+    return putApi("me/player/pause");
   }
 
   previousTrack() {
-    return getApi("me/player/next");
+    return postApi("me/player/next");
   }
 
   nextTrack() {
-    return getApi("me/player/next");
+    return postApi("me/player/next");
   }
 
   getCurrentTrack() {
     return getApi("me/player/currently-playing");
+  }
+
+  addTrackToQueue(trackUri) {
+    return postApi("me/player/queue", { uri: trackUri });
+  }
+
+  seekToTrackPosition(position_ms) {
+    return put("me/player/seek", { position_ms: position_ms });
   }
 }
 
 function getApi(endpoint, data = null) {
   let accessToken = getAccessToken();
   return $.get({
+    url: "https://api.spotify.com/v1/" + endpoint,
+    headers: { Authorization: "Bearer " + accessToken },
+    data: data,
+  }).catch((error) => {
+    console.log(error);
+  });
+}
+
+function putApi(endpoint, data = null) {
+  let accessToken = getAccessToken();
+  return $.ajax({
+    type: "PUT",
+    url: "https://api.spotify.com/v1/" + endpoint,
+    headers: { Authorization: "Bearer " + accessToken },
+    data: data,
+  }).catch((error) => {
+    console.log(error);
+  });
+}
+
+function postApi(endpoint, data = null) {
+  let accessToken = getAccessToken();
+  return $.post({
     url: "https://api.spotify.com/v1/" + endpoint,
     headers: { Authorization: "Bearer " + accessToken },
     data: data,

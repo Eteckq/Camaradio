@@ -1,4 +1,4 @@
-class SocketModel {
+class SocketService {
   constructor() {
     this.socket = io();
   }
@@ -15,6 +15,10 @@ class SocketModel {
 
   socketUpdateTrackListEvent(handler) {
     this.socket.on("updateTrackList", handler);
+  }
+
+  socketCurrentTrackChange(handler) {
+    this.socket.on("currentTrackChange", handler);
   }
 
   // Functions
