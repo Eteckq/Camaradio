@@ -19,7 +19,7 @@ export default class Playlist {
     }
 
     addTrack(track: Track, user: User){
-        return this.queue.addTrack(track, user).then(queueItem => {
+        return this.queue.addTrack(track, user).then(() => {
             if(this.currentQueueItem === undefined){
                 this.nextTrack()
             }

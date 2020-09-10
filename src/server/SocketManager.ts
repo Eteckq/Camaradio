@@ -3,15 +3,17 @@ import socket, { Server, Socket } from 'socket.io';
 import User from '@entities/User'
 import Queue from '@entities/Queue'
 import Playlist from '@entities/Playlist'
+import App from './App'
+import QueueItem from '@entities/QueueItem';
 
 export default class SocketManager {
 
     io: Server
+    app: App
 
-    
-
-    constructor(io: Server){
+    constructor(io: Server, app: App){
         this.io = io
+        this.app = app
 
         this.io.on('connection', (client: Socket) => {
             console.log('new client');
@@ -19,31 +21,30 @@ export default class SocketManager {
 
             client.on('hello', data => {
                 user = data.user
-                this.users.push()
+                this.app.users.push()
 
-                client.emit('updateTrackList', this.playlist.getQueueItems())
+                client.emit('updateTrackList', this.app.playlist.getQueueItems())
 
-                if(this.playlist.getCurrentQueueItem() !== undefined){
-                
+                if(this.app.playlist.getCurrentQueueItem() !== undefined){
                     client.emit('currentTrackChange', {
-                        queueItem: this.playlist.getCurrentQueueItem(),
-                        position_ms: this.playlist.getActualTrackTimestamp()
+                        queueItem: this.app.playlist.getCurrentQueueItem(),
+                        position_ms: this.app.playlist.getActualTrackTimestamp()
                     })
                 }
             })
 
             client.on('addTrack', data => {
-                this.playlist.addTrack(data.track, user).then(queueItem => {
-                    this.io.emit('updateTrackList', this.playlist.getQueueItems())
+                this.app.playlist.addTrack(data.track, user).then(() => {
+                    this.io.emit('updateTrackList', this.app.playlist.getQueueItems())
 
-                    if(this.playlist.getCurrentQueueItem() !== undefined && this.playlist.getQueueItems().length === 0){
+                    if(this.app.playlist.getCurrentQueueItem() !== undefined && this.app.playlist.getQueueItems().length === 0){
                         client.emit('currentTrackChange', {
-                            queueItem: this.playlist.getCurrentQueueItem(),
+                            queueItem: this.app.playlist.getCurrentQueueItem(),
                             position_ms: 0
                         })
                     }
 
-                }).catch( error => {
+                }).catch( (error: string) => {
                     console.log(error);
                     client.emit('notify', error)
                 })
