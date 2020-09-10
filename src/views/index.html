@@ -48,6 +48,11 @@
         </div>
       </div>
       <div class="col-4">
+        <button id="playBtn">Play</button>
+        <button id="pauseBtn">Pause</button>
+        <button id="nextTrackBtn">Next track</button>
+        <button id="currentTrackBtn">Get current track</button>
+
         <table id="queueTable" class="table table-striped"></table>
       </div>
     </div>
@@ -59,6 +64,10 @@
   <script src="scripts/view.js"></script>
   <script src="scripts/controller.js"></script>
 
+  <!-- Web Playback SDK -->
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  <script src="scripts/playback.js"></script>
+
   <script>
     
     var app;
@@ -66,5 +75,52 @@
     $(function () {
       app = new Controller(new SpotifyModel(), new SocketModel(), new View())
     });
+
+    console.log("init play back");
+    let accessToken = getCookie("access_token");
+
+    window.onSpotifyWebPlaybackSDKReady = () => {
+      const token = accessToken;
+
+      console.log(accessToken);
+      const player = new Spotify.Player({
+        name: "Camaradio",
+        getOAuthToken: (cb) => {
+          cb(token);
+        },
+      });
+
+      // Error handling
+      player.addListener("initialization_error", ({ message }) => {
+        //console.error(message);
+      });
+      player.addListener("authentication_error", ({ message }) => {
+        // console.error(message);
+      });
+      player.addListener("account_error", ({ message }) => {
+        //console.error(message);
+      });
+      player.addListener("playback_error", ({ message }) => {
+        // console.error(message);
+      });
+
+      // Playback status updates
+      player.addListener("player_state_changed", (state) => {
+        // console.log(state);
+      });
+
+      // Ready
+      player.addListener("ready", ({ device_id }) => {
+        // console.log("Ready with Device ID", device_id);
+      });
+
+      // Not Ready
+      player.addListener("not_ready", ({ device_id }) => {
+        //console.log("Device ID has gone offline", device_id);
+      });
+
+      // Connect to the player!
+      player.connect();
+    };
   </script>
 </html>
