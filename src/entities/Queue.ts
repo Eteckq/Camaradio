@@ -1,30 +1,36 @@
 import Track from '@entities/Track';
+import User from '@entities/User';
+import QueueItem from "@entities/QueueItem"
+
+import ISpotifyTrack from "@entities/interfaces/ISpotifyTrack"
+import ISpotifyUser from "@entities/interfaces/ISpotifyUser"
 
 export default class Queue {
-  tracks: Track[];
+  queueItems: QueueItem[];
 
   constructor() {
-    this.tracks = [];
+    this.queueItems = [];
   }
 
-  addTrack(trackId: string, userId: string) {
+  addTrack(spotifyTrack: ISpotifyTrack, user: User) {
     return new Promise((resolve, reject) => {
-      if(this.trackExist(trackId)){
+      if(this.trackExist(spotifyTrack)){
         reject('This track is already in queue')
       } else {
-        const track: Track = new Track(trackId, userId)
-        this.tracks.push(track);
-        resolve(track)
+        const track: Track = new Track(spotifyTrack)
+        const queueItem = new QueueItem(track, user)
+        this.queueItems.push(queueItem);
+        resolve(queueItem)
       }
     })
   }
 
-  getTracks() {
-    return this.tracks;
+  getQueueItems() {
+    return this.queueItems;
   }
 
-  private trackExist(trackId: string): boolean{
-    return this.tracks.some(track => track.trackId === trackId)
+  private trackExist(trackChecked: ISpotifyTrack): boolean{
+    return this.queueItems.some(item => item.track.data.id === trackChecked.id)
 
   }
 }

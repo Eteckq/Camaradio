@@ -34,16 +34,13 @@ class Controller {
   // SOCKET Events
 
   handleUpdateTrackList = (tracks) => {
+    console.log("handleUpdateTrackList", tracks);
     if (tracks.length === 0) {
       return;
     }
 
-    this.service.spotify
-      .getTracksFromTracksId(tracks.map((track) => track.trackId))
-      .then((result) => {
-        console.log("updateTrackList", result);
-        this.view.displayQueueTableFromTracks(result.tracks);
-      });
+    console.log("updateTrackList", tracks);
+    this.view.displayQueueTableFromTracks(tracks);
   };
 
   handleConnect = (data) => {
@@ -76,6 +73,8 @@ class Controller {
   ///// Functions /////
 
   addTrackToQueue(trackId) {
-    this.service.socket.sendAddTrack({ trackId: trackId });
+    this.service.spotify.getTrackFromId(trackId).then((track) => {
+      this.service.socket.sendAddTrack(track);
+    });
   }
 }
