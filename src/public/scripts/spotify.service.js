@@ -72,7 +72,7 @@ class SpotifyService {
   }
 
   seekToTrackPosition(position_ms) {
-    return put("me/player/seek", { position_ms: position_ms });
+    return putApi("me/player/seek", { position_ms: position_ms });
   }
 }
 

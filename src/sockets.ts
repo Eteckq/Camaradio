@@ -12,7 +12,7 @@ export default function initSockets(io: Server){
         let user: User;
 
         client.on('hello', data => {
-            user = new User(data.id)
+            user = data.user
             users.push()
 
             client.emit('updateTrackList', queue.getQueueItems())

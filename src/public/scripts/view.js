@@ -22,14 +22,15 @@ class View {
     });
   }
 
-  displayQueueTableFromTracks(tracks) {
+  displayQueueTableFromTracks(queue) {
     $("#queueTable").empty();
 
-    tracks.forEach((track) => {
+    queue.forEach((queueItem) => {
       $("#queueTable").append(`
             <tr>
-            <td>${track.track.data.name}</td>
-            <td>${track.track.data.artists[0].name}</td>
+            <td>${queueItem.track.name}</td>
+            <td>${queueItem.track.artists[0].name}</td>
+            <td>Ajouté par ${queueItem.user.display_name}</td>
             </tr>`);
     });
   }
