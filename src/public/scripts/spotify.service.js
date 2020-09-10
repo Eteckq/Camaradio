@@ -103,9 +103,8 @@ function putApi(endpoint, data = null) {
 function postApi(endpoint, data = null) {
   let accessToken = getAccessToken();
   return $.post({
-    url: "https://api.spotify.com/v1/" + endpoint,
+    url: "https://api.spotify.com/v1/" + endpoint + "?" + $.param(data),
     headers: { Authorization: "Bearer " + accessToken },
-    data: data,
   }).catch((error) => {
     console.log(error);
   });

@@ -22,10 +22,10 @@ class View {
     });
   }
 
-  displayQueueTableFromTracks(queue) {
+  displayQueueTableFromTracks(queueItems) {
     $("#queueTable").empty();
 
-    queue.forEach((queueItem) => {
+    queueItems.forEach((queueItem) => {
       $("#queueTable").append(`
             <tr>
             <td>${queueItem.track.name}</td>

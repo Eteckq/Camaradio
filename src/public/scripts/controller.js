@@ -33,14 +33,14 @@ class Controller {
 
   // SOCKET Events
 
-  handleUpdateTrackList = (tracks) => {
-    console.log("handleUpdateTrackList", tracks);
-    if (tracks.length === 0) {
+  handleUpdateTrackList = (queueItems) => {
+    console.log("handleUpdateTrackList", queueItems);
+    if (queueItems.length === 0) {
       return;
     }
 
-    console.log("updateTrackList", tracks);
-    this.view.displayQueueTableFromTracks(tracks);
+    console.log("updateTrackList", queueItems);
+    this.view.displayQueueTableFromTracks(queueItems);
   };
 
   handleConnect = () => {

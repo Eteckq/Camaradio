@@ -23,6 +23,8 @@ export default function initSockets(io: Server){
                 io.emit('updateTrackList', queue.getQueueItems())
 
                 setTimeout(() => {
+                    io.emit('updateTrackList', queue.getQueueItems())
+                    
                     io.emit('currentTrackChange', {
                         queueItem: queueItem,
                         position_ms: 210
