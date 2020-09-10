@@ -88,6 +88,7 @@ function getApi(endpoint, data = null) {
 }
 
 function putApi(endpoint, data = null) {
+  jsonData = JSON.stringify(data);
   let accessToken = getAccessToken();
   return $.ajax({
     type: "PUT",

@@ -58,10 +58,12 @@ class Controller {
 
   handleCurrentTrackChange = async (data) => {
     console.log("current track change");
+    console.log(data);
 
     await this.service.spotify.addTrackToQueue(data.track.uri);
 
     console.log("after addTrackToQueue");
+    console.log(data.position_ms);
 
     await this.service.spotify.seekToTrackPosition(data.position_ms);
 
