@@ -19,12 +19,12 @@ export default function initSockets(io: Server){
         })
 
         client.on('addTrack', data => {
-            queue.addTrack(data.track, user).then(track => {
+            queue.addTrack(data.track, user).then(queueItem => {
                 io.emit('updateTrackList', queue.getQueueItems())
 
                 setTimeout(() => {
                     io.emit('currentTrackChange', {
-                        track: track,
+                        queueItem: queueItem,
                         position_ms: 210
                     })
                 }, 2000);

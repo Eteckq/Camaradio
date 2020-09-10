@@ -56,19 +56,14 @@ class Controller {
   };
 
   handleCurrentTrackChange = async (data) => {
-    console.log("current track change");
-    console.log(data);
+    let track = data.queueItem.track;
+    let user = data.queueItem.user;
+    let position_ms = data.position_ms;
 
-    await this.service.spotify.addTrackToQueue(data.track.uri);
+    await this.service.spotify.addTrackToQueue(track.uri);
+    await this.service.spotify.seekToTrackPosition(position_ms);
 
-    console.log("after addTrackToQueue");
-    console.log(data.position_ms);
-
-    await this.service.spotify.seekToTrackPosition(data.position_ms);
-
-    console.log("after seekToTrackPosition");
-
-    this.view.displayCurrentPlayedTrack();
+    this.view.displayCurrentPlayedTrack(track);
   };
 
   ///// Functions /////
