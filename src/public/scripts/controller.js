@@ -60,8 +60,13 @@ class Controller {
     let user = data.queueItem.user;
     let position_ms = data.position_ms;
 
-    await this.service.spotify.addTrackToQueue(track.uri);
-    await this.service.spotify.seekToTrackPosition(position_ms);
+    this.service.spotify.addTrackToQueue(track.uri).then((res) => {
+      this.service.spotify.seekToTrackPosition(position_ms);
+
+      this.service.spotify.nextTrack().then((res) => {
+        this.service.spotify.startResumePlayback();
+      });
+    });
 
     this.view.displayCurrentPlayedTrack(track);
   };
