@@ -4,6 +4,8 @@ class Controller {
     this.view = view;
 
     this.view.bindSearchButton(this.handleSearchButton);
+    this.view.bindPlayBtn(this.handlePlayButton);
+    this.view.bindPauseBtn(this.handlePauseButton);
 
     this.model.socket.socketUpdateTrackListEvent(this.handleUpdateTrackList);
     this.model.socket.socketConnectEvent(this.handleConnect);
@@ -18,6 +20,14 @@ class Controller {
     this.model.spotify.getTracksFromSearch(search).then((tracks) => {
       this.view.displaySearchResult(tracks.tracks.items);
     });
+  };
+
+  handlePlayButton = (search) => {
+    this.spotifyModel.startResumePlayback();
+  };
+
+  handlePauseButton = (search) => {
+    this.spotifyModel.pausePlayback();
   };
 
   // SOCKET Events

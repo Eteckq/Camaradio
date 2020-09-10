@@ -52,27 +52,29 @@ router.get("/callback", async (req: Request, res: Response) => {
 router.get('/refresh', async (req: Request, res: Response) => {
   let refresh_token = req.cookies.refresh_token;
 
-  if(!refresh_token){
-    res.send("pute")
+  if (!refresh_token) {
+    res.send("pute");
   }
 
   request.post(
     {
-      url: 'https://accounts.spotify.com/api/token',
+      url: "https://accounts.spotify.com/api/token",
       form: {
-        grant_type: 'refresh_token',
-        refresh_token: refresh_token
+        grant_type: "refresh_token",
+        refresh_token: refresh_token,
       },
       headers: {
         Authorization:
-          'Basic ' +
-          new Buffer(config.client_id + ':' + config.client_secret).toString('base64'),
+          "Basic " +
+          new Buffer(config.client_id + ":" + config.client_secret).toString(
+            "base64"
+          ),
       },
       json: true,
     },
     (error, response, body) => {
-        res.cookie('access_token', body.access_token);
-        res.end();
+      res.cookie("access_token", body.access_token);
+      res.end();
     }
   );
 });

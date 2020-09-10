@@ -44,6 +44,28 @@ class SpotifyModel {
       console.log(error);
     });
   }
+
+  // PLAYER
+
+  startResumePlayback() {
+    return getApi("me/player/play");
+  }
+
+  pausePlayback() {
+    return getApi("me/player/pause");
+  }
+
+  previousTrack() {
+    return getApi("me/player/next");
+  }
+
+  nextTrack() {
+    return getApi("me/player/next");
+  }
+
+  getCurrentTrack() {
+    return getApi("me/player/currently-playing");
+  }
 }
 
 function getApi(endpoint, data = null) {

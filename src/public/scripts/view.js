@@ -33,4 +33,18 @@ class View {
             </tr>`);
     });
   }
+
+  // PLAYER
+
+  bindPlayBtn(handler) {
+    $("#playBtn").click(() => {
+      handler();
+    });
+  }
+
+  bindPauseBtn(handler) {
+    $("#pauseBtn").click(() => {
+      handler();
+    });
+  }
 }
