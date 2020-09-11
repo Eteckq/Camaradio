@@ -17,6 +17,10 @@ class Controller {
     this.service.socket.socketCurrentTrackChange(this.handleCurrentTrackChange);
     this.service.socket.socketUserHateTrackEvent(this.handleUserHateTrack);
 
+    this.service.socket.socketUpdateConnectedUsersList(
+      this.handleCurrentUserListChange
+    );
+
     setInterval(() => {
       console.log("refresh token");
       this.service.spotify.refreshToken();
@@ -102,6 +106,10 @@ class Controller {
     console.log("Someone hate " + trackId);
   };
 
+  handleCurrentUserListChange = async (users) => {
+    console.log("handleCurrentUserListChange");
+    this.view.displayCurrentUsersList(users);
+  };
   ///// Functions /////
 
   addTrackToQueue(trackId) {

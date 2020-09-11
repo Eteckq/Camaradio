@@ -103,6 +103,15 @@ class View {
     </div>`);
   }
 
+  displayCurrentUsersList(users) {
+    $("#userList").empty();
+    users.forEach((user) => {
+      $("#userList").append(
+        `<div class="userName"> ${user.display_name}</div>`
+      );
+    });
+  }
+
   setTimelinePercentage(percent) {
     $("#timeLine").css("width", percent + "%");
   }

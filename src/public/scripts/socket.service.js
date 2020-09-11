@@ -18,7 +18,6 @@ class SocketService {
   }
 
   socketCurrentTrackChange(handler) {
-    console.log("socketCurrentTrackChange");
     this.socket.on("currentTrackChange", handler);
   }
 
@@ -26,6 +25,9 @@ class SocketService {
     this.socket.on("hateTrack", handler);
   }
 
+  socketUpdateConnectedUsersList(handler) {
+    this.socket.on("updateConnectedUsersList", handler);
+  }
   // Functions
 
   sendHello(data) {
