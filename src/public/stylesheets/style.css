@@ -146,6 +146,7 @@ body {
 
 #page2 .backToHome {
   font-size: 35px;
+  margin-left: 50px;
 }
 
 #page2 #searchBar {
@@ -155,6 +156,8 @@ body {
    height: 100px;
    padding-left: 10px;
    font-size: 60px;
+   margin-left: 100px;
+   margin-top: 20px;
 
 
   background: #F5F5F5;
