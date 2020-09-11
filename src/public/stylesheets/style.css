@@ -1,12 +1,15 @@
 body {
   font-family: "Montserrat", sans-serif;
   --black: #121212;
+
   --grey01: #b3b3b3;
-  --grey02: #535353;
-  --grey03: #212121;
+  --grey02: #5e5e5e;
+  --grey03: #454447;
+
+  --red: #910808;
 }
 
-#body {
+#page1 {
   background: linear-gradient(
       180deg,
       #1d1d1d 8.85%,
@@ -63,11 +66,45 @@ body {
   bottom: 100px;
 }
 
-#footer {
+#player {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100px;
+  height: 170px;
+  background: var(--grey03);
+}
+
+#timeLineBackground {
+  position: absolute;
+  bottom: 170px;
+  height: 10px;
+  width: 100%;
   background: var(--grey02);
+  z-index: 1;
+}
+
+#timeLine {
+  position: absolute;
+  bottom: 170px;
+  height: 10px;
+  width: 70%;
+  background: #ffffff;
+  z-index: 2;
+}
+
+#currentTrack {
+  height: 100%;
+}
+#albumCover {
+  height: 100%;
+  background: black;
+  width: 170px;
+}
+
+#angryIcon {
+  font-size: 80px;
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
 }
