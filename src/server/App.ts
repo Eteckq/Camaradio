@@ -1,17 +1,63 @@
 import SocketManager from './SocketManager'
 import Playlist from '@entities/Playlist'
 import User from '@entities/User'
-import { Server } from 'socket.io'
+import { Server, Socket } from 'socket.io'
+import UserSocket from './UserSocket';
 
 export default class Controller {
     socketManager: SocketManager
 
     playlist = new Playlist()
-    users: User[] = []
+
+    userSockets: UserSocket[] = []
 
     constructor(io: Server){
-        this.socketManager = new SocketManager(io, this)
+        this.socketManager = new SocketManager(io)
+        this.socketManager.bindConnectionUserSocket(this.handleConnectionUserSocket)
     }
 
-    
+    handleConnectionUserSocket = (client:Socket) =>{
+        const userSocket: UserSocket = new UserSocket(client);
+        this.userSockets.push(userSocket)
+
+        userSocket.bindOnHello(this.handleOnHello)
+        userSocket.bindOnDisconnect(this.handleOnDisconnect)
+        userSocket.bindOnAddTrack(this.handleOnTrack)
+    }
+
+    handleOnDisconnect = (userSocket: UserSocket, data: any) => {
+        console.log(userSocket.user?.display_name + ' has disconnected');
+    }
+
+    handleOnHello = (userSocket: UserSocket, data: any) => {
+        userSocket.setUser(data.user)
+
+        userSocket.updateTrackList(this.playlist.getQueueItems())
+
+        const queueItem = this.playlist.getCurrentQueueItem()
+        if(queueItem !== undefined){
+            userSocket.changeCurrentTrack(queueItem, this.playlist.getActualTrackTimestamp())
+        }
+    }
+
+    handleOnTrack = (userSocket: UserSocket, data: any) => {
+        if(userSocket.user === null){
+            return;
+        }
+
+        this.playlist.addTrack(data.track, userSocket.user).then(() => {
+
+            const queueItem = this.playlist.getCurrentQueueItem()
+            const queueItems = this.playlist.getQueueItems()
+            
+
+            this.socketManager.broadcastUpdateTrackList(queueItems)
+            if(queueItem !== undefined && queueItems.length === 0){
+                userSocket.changeCurrentTrack(queueItem, this.playlist.getActualTrackTimestamp())
+            }
+        }).catch( (error: string) => {
+            console.log(error);
+            userSocket.sendNotification()
+        })
+    }
 }
