@@ -11,14 +11,8 @@ class UserSocket {
     client: Socket
     user: User | null = null
 
-    socketManager: SocketManager
-
-    constructor(client: Socket, socketManager: SocketManager){
+    constructor(client: Socket){
         this.client = client
-        this.socketManager = socketManager
-
-        client.on('hello', this.onHello)
-        client.on('addTrack', this.onAddTrack)
     }
 
     setUser(user: User){
@@ -29,39 +23,23 @@ class UserSocket {
 
     // On
 
-    onHello = (data: any) => {
-        this.setUser(data.user)
-        this.socketManager.userSockets.push(this)
-
-        this.updateTrackList(this.socketManager.app.playlist.getQueueItems())
-
-        const queueItem = this.socketManager.app.playlist.getCurrentQueueItem()
-        if(queueItem !== undefined){
-            this.changeCurrentTrack(queueItem, this.socketManager.app.playlist.getActualTrackTimestamp())
-        }
-    }
-
-    onAddTrack = (data: any) => {
-        if(this.user === null){
-            return;
-        }
-
-        this.socketManager.app.playlist.addTrack(data.track, this.user).then(() => {
-
-            const queueItem = this.socketManager.app.playlist.getCurrentQueueItem()
-            const queueItems = this.socketManager.app.playlist.getQueueItems()
-
-            this.socketManager.io.emit('updateTrackList', queueItems)
-            if(queueItem !== undefined && queueItems.length === 0){
-                this.changeCurrentTrack(queueItem, this.socketManager.app.playlist.getActualTrackTimestamp())
-            }
-
-        }).catch( (error: string) => {
-            console.log(error);
-            this.sendNotification()
+    bindOnHello(handler: any){
+        this.client.on('hello', data => {
+            handler(this, data)
         })
     }
 
+    bindOnDisconnect(handler: any){
+        this.client.on('disconnect', data => {
+            handler(this, data)
+        })
+    }
+
+    bindOnAddTrack(handler: any){
+        this.client.on('addTrack', data => {
+            handler(this, data)
+        })
+    }
 
 
     // Emit
@@ -88,20 +66,57 @@ class UserSocket {
 export default class SocketManager {
 
     io: Server
-    userSockets: UserSocket[] = []
     app: App
+
+    userSockets: UserSocket[] = []
 
     constructor(io: Server, app: App){
         this.io = io
         this.app = app
 
         this.io.on('connection', (client: Socket) => {
-            const userSocket: UserSocket = new UserSocket(client, this);
+            const userSocket: UserSocket = new UserSocket(client);
 
-            client.on('disconnect', () => {
-                console.log('A user has disconnected from the socket!')
-                // Remove from array
-            });
+            userSocket.bindOnHello(this.handleOnHello)
+            userSocket.bindOnDisconnect(this.handleOnDisconnect)
+            userSocket.bindOnAddTrack(this.handleOnTrack)
         });
+    }
+
+    handleOnDisconnect = (userSocket: UserSocket, data: any) => {
+        console.log(userSocket.user?.display_name + ' has disconnected');
+    }
+
+    handleOnHello = (userSocket: UserSocket, data: any) => {
+        userSocket.setUser(data.user)
+
+        this.userSockets.push(userSocket)
+
+        userSocket.updateTrackList(this.app.playlist.getQueueItems())
+
+        const queueItem = this.app.playlist.getCurrentQueueItem()
+        if(queueItem !== undefined){
+            userSocket.changeCurrentTrack(queueItem, this.app.playlist.getActualTrackTimestamp())
+        }
+    }
+
+    handleOnTrack = (userSocket: UserSocket, data: any) => {
+        if(userSocket.user === null){
+            return;
+        }
+
+        this.app.playlist.addTrack(data.track, userSocket.user).then(() => {
+
+            const queueItem = this.app.playlist.getCurrentQueueItem()
+            const queueItems = this.app.playlist.getQueueItems()
+
+            this.io.emit('updateTrackList', queueItems)
+            if(queueItem !== undefined && queueItems.length === 0){
+                userSocket.changeCurrentTrack(queueItem, this.app.playlist.getActualTrackTimestamp())
+            }
+        }).catch( (error: string) => {
+            console.log(error);
+            userSocket.sendNotification()
+        })
     }
 }
