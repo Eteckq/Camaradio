@@ -1,8 +1,24 @@
 body {
+  font-family: "Montserrat", sans-serif;
   --black: #121212;
   --grey01: #b3b3b3;
   --grey02: #535353;
   --grey03: #212121;
+}
+
+#body {
+  background: linear-gradient(
+      180deg,
+      #1d1d1d 8.85%,
+      rgba(44, 44, 44, 0.0364583) 100%
+    ),
+    #1d1d1d;
+
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+  bottom: 100px;
 }
 
 #header {
@@ -11,7 +27,32 @@ body {
   left: 0;
   right: 0;
   height: 100px;
-  background: var(--grey01);
+}
+
+.icon {
+  font-size: 60px;
+  color: #ffffff;
+}
+
+#searchIcon {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+#appName {
+  font-weight: bold;
+  font-size: 70px;
+  color: #ffffff;
+  width: 600px;
+  margin: 30px auto;
+  text-align: center;
+}
+
+#menuIcon {
+  position: absolute;
+  top: 40px;
+  right: 40px;
 }
 
 #content {
@@ -20,7 +61,6 @@ body {
   left: 0;
   right: 0;
   bottom: 100px;
-  background: var(--grey03);
 }
 
 #footer {
