@@ -1,4 +1,6 @@
 class Controller {
+  timelineInterval = null;
+
   constructor(service, view) {
     this.service = service;
     this.view = view;
@@ -83,6 +85,7 @@ class Controller {
     });
 
     this.view.displayCurrentPlayedTrack(track);
+    this.startTimeline(position_ms, track.duration_ms);
   };
 
   ///// Functions /////
@@ -93,5 +96,14 @@ class Controller {
     });
 
     this.view.displayHomePage();
+  }
+
+  startTimeline(position_ms, duration_ms) {
+    clearInterval(this.timelineInterval);
+
+    this.timelineInterval = setInterval(() => {
+      position_ms += 100;
+      this.view.setTimelinePercentage((position_ms / duration_ms) * 100);
+    }, 100);
   }
 }

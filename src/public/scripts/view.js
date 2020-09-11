@@ -71,6 +71,10 @@ class View {
             </tr>`);
   }
 
+  setTimelinePercentage(percent) {
+    $("#timeLine").css("width", percent + "%");
+  }
+
   displayHomePage() {
     $("#page1").show();
     $("#page2").hide();
