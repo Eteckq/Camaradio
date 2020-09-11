@@ -8,8 +8,6 @@ class Controller {
     this.view.bindSearchButton(this.handleSearchButton);
     this.view.bindSearchBar(this.handleSearchBar);
 
-    this.view.bindMuteCurrentTrackButton(this.handleMuteCurrentTrackButton);
-
     this.view.bindMenuButton(this.handleMenuButton);
     this.view.bindBackToHomeButton(this.handleBackToHomeButton);
 
@@ -49,6 +47,7 @@ class Controller {
 
   handleMuteCurrentTrackButton = () => {
     console.log("MUTE PLAYER");
+    this.service.spotify.pausePlayback();
   };
 
   // Page 2
@@ -96,15 +95,19 @@ class Controller {
     let user = data.queueItem.user;
     let position_ms = data.position_ms;
 
-    this.service.spotify.addTrackToQueue(track.uri).then((res) => {
+    this.service.spotify.changeTrack(track.uri, position_ms);
+
+    /* this.service.spotify.addTrackToQueue(track.uri).then((res) => {
       this.service.spotify.nextTrack().then((res) => {
         this.service.spotify.seekToTrackPosition(position_ms);
         this.service.spotify.startResumePlayback();
       });
-    });
+    }); */
 
     this.view.displayCurrentPlayedTrack(track);
+
     this.view.bindHateCurrentTrackButton(this.handleHateCurrentTrackButton);
+    this.view.bindMuteCurrentTrackButton(this.handleMuteCurrentTrackButton);
 
     this.startTimeline(position_ms, track.duration_ms);
   };

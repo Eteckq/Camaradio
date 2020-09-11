@@ -65,12 +65,15 @@ class SpotifyService {
     return postApi("me/player/next");
   }
 
-  nextTrack() {
-    return postApi("me/player/next");
-  }
-
   getCurrentTrack() {
     return getApi("me/player/currently-playing");
+  }
+
+  changeTrack(trackUri, position_ms) {
+    return putApi("me/player/play", {
+      context_uri: trackUri,
+      position_ms: position_ms,
+    });
   }
 
   addTrackToQueue(trackUri) {
@@ -79,6 +82,10 @@ class SpotifyService {
 
   seekToTrackPosition(position_ms) {
     return putApi("me/player/seek", { position_ms: position_ms });
+  }
+
+  nextTrack() {
+    return postApi("me/player/next");
   }
 }
 

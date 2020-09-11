@@ -1,13 +1,14 @@
 class PlayerService {
+  player;
+
   constructor() {
-    console.log("init play back");
     let accessToken = getCookie("access_token");
 
     window.onSpotifyWebPlaybackSDKReady = () => {
       const token = accessToken;
 
       console.log(accessToken);
-      const player = new Spotify.Player({
+      this.player = new Spotify.Player({
         name: "Camaradio",
         getOAuthToken: (cb) => {
           cb(token);
@@ -15,36 +16,36 @@ class PlayerService {
       });
 
       // Error handling
-      player.addListener("initialization_error", ({ message }) => {
+      this.player.addListener("initialization_error", ({ message }) => {
         //console.error(message);
       });
-      player.addListener("authentication_error", ({ message }) => {
+      this.player.addListener("authentication_error", ({ message }) => {
         // console.error(message);
       });
-      player.addListener("account_error", ({ message }) => {
+      this.player.addListener("account_error", ({ message }) => {
         //console.error(message);
       });
-      player.addListener("playback_error", ({ message }) => {
+      this.player.addListener("playback_error", ({ message }) => {
         // console.error(message);
       });
 
       // Playback status updates
-      player.addListener("player_state_changed", (state) => {
+      this.player.addListener("player_state_changed", (state) => {
         // console.log(state);
       });
 
       // Ready
-      player.addListener("ready", ({ device_id }) => {
+      this.player.addListener("ready", ({ device_id }) => {
         // console.log("Ready with Device ID", device_id);
       });
 
       // Not Ready
-      player.addListener("not_ready", ({ device_id }) => {
+      this.player.addListener("not_ready", ({ device_id }) => {
         //console.log("Device ID has gone offline", device_id);
       });
 
       // Connect to the player!
-      player.connect();
+      this.player.connect();
     };
   }
 }
