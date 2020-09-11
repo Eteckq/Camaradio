@@ -75,9 +75,10 @@ export default class Controller {
       });
   };
 
-  handleOnHateTrack = (userSocket: UserSocket, trackId: string) => {
-    const queueItem = this.playlist.queue.getQueueItemFromTrackId(trackId);
-
+  handleOnHateTrack = (userSocket: UserSocket, data: any) => {
+    const queueItem = this.playlist.queue.getQueueItemFromTrackId(data.trackId);
+    console.log('hate' + queueItem?.haters.length);
+    
     if (queueItem !== null && userSocket.user !== null) {
       queueItem.addHater(userSocket.user);
       this.broadcastUpdateTrackList();
