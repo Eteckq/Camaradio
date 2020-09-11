@@ -6,9 +6,17 @@ class SpotifyService {
   getTracksFromSearch(query) {
     console.log("search");
 
-    return getApi("search", {
-      q: query,
-      type: "track",
+    return new Promise((resolve, reject) => {
+      getApi("search", {
+        q: query,
+        type: "track",
+      }).then((data) => {
+        if (data) {
+          resolve(data.tracks.items);
+        } else {
+          reject("Error when search tracks");
+        }
+      });
     });
   }
 

@@ -4,6 +4,7 @@ class Controller {
     this.view = view;
 
     this.view.bindSearchButton(this.handleSearchButton);
+    this.view.bindSearchBar(this.handleSearchBar);
     this.view.bindMenuButton(this.handleMenuButton);
     this.view.bindBackToHomeButton(this.handleBackToHomeButton);
 
@@ -40,7 +41,8 @@ class Controller {
 
   handleSearchBar = (search) => {
     this.service.spotify.getTracksFromSearch(search).then((tracks) => {
-      this.view.displaySearchResult(tracks.tracks.items);
+      console.log(tracks);
+      this.view.displaySearchResult(tracks);
     });
   };
 
