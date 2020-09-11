@@ -56,7 +56,7 @@ export default class Controller {
                 this.nextTrack()
             }
 
-            this.socketManager.broadcastUpdateTrackList(queueItems)
+            this.broadcastUpdateTrackList()
         }).catch( (error: string) => {
             console.log(error);
             userSocket.sendNotification()
@@ -74,13 +74,28 @@ export default class Controller {
             const duration = queueItem.track.duration_ms + 3000
             this._timer = Date.now()
             
+            this.broadcastChangeCurrentTrack()
+
             setTimeout(() => {
                 this.nextTrack()
-            }, 5000);
+            }, 1000);
 
-            this.socketManager.broadcastChangeCurrentTrack(queueItem, 0)
         } else {
             console.log("No new track to load");
         }
+        
+        this.broadcastUpdateTrackList()
+    }
+
+    broadcastUpdateTrackList(){
+        const queueItems = this.playlist.queue.getQueueItems()
+        if(queueItems)
+            this.socketManager.broadcastUpdateTrackList(queueItems)
+    }
+
+    broadcastChangeCurrentTrack(){
+        const queueItem = this.playlist.getCurrentQueueItem()
+        if(queueItem)
+            this.socketManager.broadcastChangeCurrentTrack(queueItem, this.getActualTrackTimestamp())
     }
 }
