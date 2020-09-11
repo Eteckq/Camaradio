@@ -57,10 +57,15 @@ class View {
     $("#tracksQueue").empty();
 
     queueItems.forEach((queueItem) => {
+      let haters = "";
+
+      if (queueItem.haters.length > 0) {
+        haters = `<span class="hatersCount">${queueItem.haters.length}</span>`;
+      }
       $("#tracksQueue").append(`
 
       <div class="trackContainer" track-id="${queueItem.track.id}">
-      <i class="fas fa-angry trackQueueAngryIcon"><span class="hatersCount">${queueItem.haters.length}</span></i>
+      <i class="fas fa-angry trackQueueAngryIcon">${haters}</i>
       
       <p class="trackName">${queueItem.track.name}</p>
       ·
