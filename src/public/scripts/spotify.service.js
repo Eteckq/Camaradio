@@ -70,9 +70,20 @@ class SpotifyService {
   }
 
   changeTrack(trackUri, position_ms) {
-    return putApi("me/player/play", {
-      context_uri: trackUri,
+    let data = {
+      uris: [trackUri],
       position_ms: position_ms,
+    };
+
+    let jsonData = JSON.stringify(data);
+    let accessToken = getAccessToken();
+    return $.ajax({
+      type: "PUT",
+      url: "https://api.spotify.com/v1/" + "me/player/play",
+      data: jsonData,
+      headers: { Authorization: "Bearer " + accessToken },
+    }).catch((error) => {
+      console.log(error);
     });
   }
 
