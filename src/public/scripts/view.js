@@ -30,14 +30,20 @@ class View {
     $("#searchResultTable").empty();
     // TODO Put 'id' in parent, and handle click event to get id (we shouldn't call 'app' on click)
     searchResults.forEach((searchResult) => {
-      $("#searchResultTable").append(`
-        <tr>
-          <th scope='row'>
-            <button type="button" class="btn btn-dark" onClick="app.addTrackToQueue('${searchResult.id}')">Ajouter</button>
-          </th>
-          <td>${searchResult.name}</td>
-          <td>${searchResult.artists[0].name}</td>
-        </tr>`);
+      $("#searchResultTable")
+        .append(`<div class="trackResult" onClick="app.addTrackToQueue('${searchResult.id}')">
+        <div
+        class="trackCover"
+        style="background-image: url('${searchResult.album.images[1].url}');"
+        ></div>
+       <div class="trackInfos">
+        <div class="trackName">
+        ${searchResult.name}
+        </div>
+        <div class="trackAuthor">${searchResult.artists[0].name}</div>
+       </div>
+      </div>
+      <hr style="border: 1px solid #545454;" />`);
     });
   }
 
@@ -83,6 +89,10 @@ class View {
     <div class="column" id="rigthCol">
       <i id="currenTrackAngryIcon" class="fas fa-angry icon"></i>
     </div>`);
+  }
+
+  setTimelinePercentage(percent) {
+    $("#timeLine").css("width", percent + "%");
   }
 
   displayHomePage() {
