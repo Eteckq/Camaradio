@@ -71,7 +71,7 @@ export default class Controller {
         const queueItem = this.playlist.loadNextTrack()
 
         if(queueItem !== undefined){
-            const duration = queueItem.track.duration_ms + 3000
+            const duration = queueItem.track.duration_ms
             this._timer = Date.now()
             
             this.broadcastChangeCurrentTrack()
