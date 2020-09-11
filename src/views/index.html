@@ -21,7 +21,7 @@
     />
   </head>
   <body>
-    <div id="body">
+    <div id="page1">
       <div id="header">
         <i class="fas fa-search icon" id="searchIcon"></i>
         <div id="appName">Camaradio</div>
@@ -29,7 +29,11 @@
       </div>
 
       <div id="content">
-        <div class="titleText">À</div>
+        <div class="titleText">À venir...</div>
+
+        <div id="tracksQueue">
+          <div class="trackContainer"></div>
+        </div>
         <input
           type="text"
           id="searchInput"
@@ -53,12 +57,25 @@
     </div>
 
     <footer id="player">
-      <div></div>
-      <div></div>
-      <div id="currentTrack"></div>
-      <button id="playBtn">Play</button>
-      <button id="pauseBtn">Pause</button>
-      <i class="fas fa-search"> </i>
+      <div id="timelineContainer">
+        <div id="timeLineBackground"></div>
+        <div id="timeLine"></div>
+      </div>
+
+      <div id="currentTrack">
+        <div
+          id="albumCover"
+          style="
+            background-image: url('https://i.scdn.co/image/107819f5dc557d5d0a4b216781c6ec1b2f3c5ab2');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+          "
+        ></div>
+        <div></div>
+        <div id="trackAdder"></div>
+        <i id="angryIcon" class="fas fa-angry icon"></i>
+      </div>
     </footer>
   </body>
 
