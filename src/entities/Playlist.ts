@@ -32,6 +32,10 @@ export default class Playlist {
     getCurrentQueueItem(){
         return this.currentQueueItem
     }
+
+    removeQueueItem(queueItem: QueueItem){
+        this.queue.queueItems = this.queue.queueItems.filter(item => {return item.track.id !== queueItem.track.id})
+    }
 }
 
 

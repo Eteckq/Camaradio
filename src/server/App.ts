@@ -80,8 +80,15 @@ export default class Controller {
 
     if (queueItem !== null && userSocket.user !== null && !queueItem?.haters.some(haterId => haterId === userSocket.user?.id)) {
       queueItem.addHater(userSocket.user);
-      this.broadcastUpdateTrackList();
       this.broadcastUserHateTrack(queueItem.track.id);
+
+      if(this.checkIfEnoughHaters(queueItem)){
+          //Remove from playlist
+          this.playlist.removeQueueItem(queueItem)
+      }
+
+      
+      this.broadcastUpdateTrackList();
     }
   };
 
@@ -90,8 +97,15 @@ export default class Controller {
 
     if (queueItem !== undefined && userSocket.user !== null) {
       queueItem.addHater(userSocket.user);
-      this.broadcastUpdateTrackList();
       this.broadcastUserSkipTrack();
+
+        if(this.checkIfEnoughHaters(queueItem)){
+            //Skip track
+            this.nextTrack()
+        }
+
+        
+      this.broadcastUpdateTrackList();
     }
   };
 
@@ -140,5 +154,12 @@ export default class Controller {
         queueItem,
         this.getActualTrackTimestamp()
       );
+  }
+
+  checkIfEnoughHaters(queueItem: QueueItem){
+    let totalUsers = this.userSockets.length
+    let haters = queueItem.haters.length
+
+    return haters >= totalUsers/2
   }
 }
