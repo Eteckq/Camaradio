@@ -89,6 +89,14 @@ body {
   height: 60px;
   width: calc(100% - 84px);
   border: var(--grey02) 2px solid;
+  display: flex;
+  align-items: center;
+  color: var(--grey02);
+}
+
+.trackQueueAngryIcon {
+  font-size: 60px;
+  color: #ffffff;
 }
 
 .trackName {
@@ -96,20 +104,24 @@ body {
   font-size: 40px;
   color: #ffffff;
   display: inline;
+  margin: 0 20px 0 40px;
 }
 
 .trackArtist {
   font-weight: 600;
   font-size: 40px;
-  color: #ffffff;
+  color: var(--grey02);
   display: inline;
+  margin: 0 20px;
 }
 
 .trackAdder {
-  font-weight: 600;
+  width: 100%;
   font-size: 40px;
-  color: #ffffff;
-  display: inline;
+  text-align: right;
+  font-style: normal;
+  font-weight: normal;
+  color: var(--grey01);
 }
 
 /* PAGE 2 */
@@ -136,17 +148,16 @@ body {
 #page2 #searchBar {
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
-   border-radius: 20px;
-   border: 1px solid #ffffff;
-   width: 250px;
-   height: 30px;
-   padding-left: 10px;
+  border-radius: 20px;
+  border: 1px solid #ffffff;
+  width: 250px;
+  height: 30px;
+  padding-left: 10px;
 }
 
-#page2 #searchBar[type=text]:focus {
+#page2 #searchBar[type="text"]:focus {
   outline: none;
 }
-
 
 /* FOOTER */
 
