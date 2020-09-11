@@ -89,6 +89,14 @@ body {
   height: 60px;
   width: calc(100% - 84px);
   border: var(--grey02) 2px solid;
+  display: flex;
+  align-items: center;
+  color: var(--grey02);
+}
+
+.trackQueueAngryIcon {
+  font-size: 60px;
+  color: #ffffff;
 }
 
 .trackName {
@@ -96,20 +104,24 @@ body {
   font-size: 40px;
   color: #ffffff;
   display: inline;
+  margin: 0 20px 0 40px;
 }
 
 .trackArtist {
   font-weight: 600;
   font-size: 40px;
-  color: #ffffff;
+  color: var(--grey02);
   display: inline;
+  margin: 0 20px;
 }
 
 .trackAdder {
-  font-weight: 600;
+  width: 100%;
   font-size: 40px;
-  color: #ffffff;
-  display: inline;
+  text-align: right;
+  font-style: normal;
+  font-weight: normal;
+  color: var(--grey01);
 }
 
 /* PAGE 2 */
@@ -150,7 +162,7 @@ body {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-#page2 #searchBar[type=text]:focus {
+#page2 #searchBar[type="text"]:focus {
   outline: none;
 }
 
@@ -227,17 +239,72 @@ body {
 
 #currentTrack {
   height: 100%;
+  width: 100%;
 }
 
-#albumCover {
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  float: left;
+}
+
+#leftCol {
   height: 100%;
-  background: black;
   width: 170px;
+  height: 100%;
+}
+
+#middleCol {
+  width: calc(86% - 170px);
+  height: 100%;
+}
+
+#currentTrackText {
+  margin: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 40px;
+  color: var(--grey01);
+}
+
+#currentTrackName {
+  font-size: 40px;
+  color: #ffffff;
+  display: inline;
+  margin: 0 20px 0 40px;
+}
+#currentTrackArtist {
+  font-weight: 600;
+  font-size: 40px;
+  color: var(--grey01);
+  display: inline;
+  margin: 0 20px;
+}
+
+#currentTrackAdder {
+  font-weight: normal;
+  font-size: 40px;
+  color: var(--grey01);
+  display: flex;
+  margin: 0 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+#rigthCol {
+  height: 100%;
+  width: 14%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #currenTrackAngryIcon {
   font-size: 80px;
-  position: absolute;
-  bottom: 40px;
-  right: 40px;
 }

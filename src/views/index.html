@@ -38,7 +38,7 @@
 
         <div id="tracksQueue">
           <div class="trackContainer">
-            <i class="fas fa-angry icon"></i>
+            <i class="fas fa-angry trackQueueAngryIcon"></i>
             <p class="trackName">DJOMB</p>
             ·
             <p class="trackArtist">bosh</p>
@@ -56,13 +56,11 @@
       </div>
     </div>
 
-    <div id="page2" style="display: none;">
+    <div id="page2" style="display: none">
       <a class="backToHome"><i class="fas fa-arrow-left icon"></i></a>
 
-      <input type="text" id="searchBar">
-        <div id="searchResultTable">
-
-        </div>
+      <input type="text" id="searchBar" />
+      <div id="searchResultTable"></div>
     </div>
 
     <div id="page3">
@@ -77,7 +75,8 @@
 
       <div id="currentTrack">
         <div
-          id="albumCover"
+          id="leftCol"
+          class="column"
           style="
             background-image: url('https://i.scdn.co/image/107819f5dc557d5d0a4b216781c6ec1b2f3c5ab2');
             background-repeat: no-repeat;
@@ -85,9 +84,17 @@
             background-size: contain;
           "
         ></div>
-        <div></div>
-        <div id="trackAdder"></div>
-        <i id="currenTrackAngryIcon" class="fas fa-angry icon"></i>
+        <div class="column" id="middleCol">
+          <div id="currentTrackText">
+            <div id="currentTrackName">ANISSA</div>
+            ·
+            <div id="currentTrackArtist">Wejdene</div>
+          </div>
+          <div id="currentTrackAdder">par tom</div>
+        </div>
+        <div class="column" id="rigthCol">
+          <i id="currenTrackAngryIcon" class="fas fa-angry icon"></i>
+        </div>
       </div>
     </footer>
   </body>
