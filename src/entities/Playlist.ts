@@ -11,7 +11,7 @@ export default class Playlist {
         this.queue = new Queue()
     }
 
-    getQueueItems(){
+    getQueueItems(): QueueItem[] {
         return this.queue.getQueueItems()
     }
 
