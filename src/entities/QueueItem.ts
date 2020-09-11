@@ -6,7 +6,7 @@ export default class QueueItem {
     public track: Track;
     public user: User;
 
-    public haters: User[] = []
+    public haters: string[] = []
 
     constructor(track: Track, user: User) {
         this.track = track
@@ -14,6 +14,6 @@ export default class QueueItem {
     }
 
     addHater(user: User){
-        this.haters.push(user)
+        this.haters.push(user.id)
     }
 }
