@@ -78,7 +78,7 @@ export default class Controller {
 
             setTimeout(() => {
                 this.nextTrack()
-            }, 1000);
+            }, duration);
 
         } else {
             console.log("No new track to load");
