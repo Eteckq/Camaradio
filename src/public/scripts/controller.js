@@ -4,8 +4,8 @@ class Controller {
     this.view = view;
 
     this.view.bindSearchButton(this.handleSearchButton);
-    this.view.bindPlayBtn(this.handlePlayButton);
-    this.view.bindPauseBtn(this.handlePauseButton);
+    this.view.bindMenuButton(this.handleMenuButton);
+    this.view.bindBackToHomeButton(this.handleBackToHomeButton);
 
     this.service.socket.socketUpdateTrackListEvent(this.handleUpdateTrackList);
     this.service.socket.socketConnectEvent(this.handleConnect);
@@ -22,18 +22,26 @@ class Controller {
 
   // DOM Events
 
-  handleSearchButton = (search) => {
+  // Page 1
+
+  handleSearchButton = () => {
+    this.view.displaySearchPage();
+  };
+
+  handleMenuButton = () => {
+    this.view.displayMenuPage();
+  };
+
+  // Page 2
+
+  handleBackToHomeButton = () => {
+    this.view.displayHomePage();
+  };
+
+  handleSearchBar = (search) => {
     this.service.spotify.getTracksFromSearch(search).then((tracks) => {
       this.view.displaySearchResult(tracks.tracks.items);
     });
-  };
-
-  handlePlayButton = (search) => {
-    this.service.spotify.startResumePlayback();
-  };
-
-  handlePauseButton = (search) => {
-    this.service.spotify.pausePlayback();
   };
 
   // SOCKET Events

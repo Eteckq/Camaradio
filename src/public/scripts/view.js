@@ -2,8 +2,20 @@ class View {
   constructor() {}
 
   bindSearchButton(handler) {
-    $("#search").click(() => {
-      handler($("#searchInput").val());
+    $("#searchIcon").click(() => {
+      handler();
+    });
+  }
+
+  bindMenuButton(handler) {
+    $("#menuIcon").click(() => {
+      handler();
+    });
+  }
+
+  bindBackToHomeButton(handler) {
+    $(".backToHome").click(() => {
+      handler();
     });
   }
 
@@ -46,17 +58,21 @@ class View {
             </tr>`);
   }
 
-  // PLAYER
-
-  bindPlayBtn(handler) {
-    $("#playBtn").click(() => {
-      handler();
-    });
+  displayHomePage() {
+    $("#page1").show();
+    $("#page2").hide();
+    $("#page3").hide();
   }
 
-  bindPauseBtn(handler) {
-    $("#pauseBtn").click(() => {
-      handler();
-    });
+  displaySearchPage() {
+    $("#page1").hide();
+    $("#page2").show();
+    $("#page3").hide();
+  }
+
+  displayMenuPage() {
+    $("#page1").hide();
+    $("#page2").hide();
+    $("#page3").show();
   }
 }
