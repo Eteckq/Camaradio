@@ -8,8 +8,6 @@ export default class Playlist {
     public queue: Queue;
     public currentQueueItem: QueueItem | undefined = undefined;
 
-    
-
     constructor() {
         this.queue = new Queue()
     }

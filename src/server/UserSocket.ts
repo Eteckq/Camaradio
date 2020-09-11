@@ -23,6 +23,18 @@ export default class UserSocket {
 
     // On
 
+    bindOnHateTrack(handler: any){
+        this.client.on('hateTrack', data => {
+            handler(this, data)
+        })
+    }
+
+    bindOnSkipTrack(handler: any){
+        this.client.on('voteSkipTrack', data => {
+            handler(this, data)
+        })
+    }
+
     bindOnHello(handler: any){
         this.client.on('hello', data => {
             handler(this, data)

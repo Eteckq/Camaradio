@@ -27,6 +27,16 @@ export default class SocketManager {
         })
     }
 
+    broadcastUserHateTrack(trackId: string){
+        this.io.emit('hateTrack', {
+            trackId
+        })
+    }
+
+    broadcastUserSkipTrack(){
+        this.io.emit('voteSkipTrack')
+    }
+
     broadcastUpdateTrackList(queueItems: QueueItem[]){
         this.io.emit('updateTrackList', queueItems)
     }

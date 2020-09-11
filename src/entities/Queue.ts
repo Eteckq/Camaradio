@@ -11,7 +11,7 @@ export default class Queue {
 
   addTrack(track: Track, user: User):Promise<QueueItem> {
     return new Promise((resolve, reject) => {
-      if(this.trackExist(track)){
+      if(this.getQueueItemFromTrackId(track.id) !== null){
         reject('This track is already in queue')
       } else {
         const queueItem = new QueueItem(track, user)
@@ -25,7 +25,13 @@ export default class Queue {
     return this.queueItems;
   }
 
-  private trackExist(trackChecked: Track): boolean{
-    return this.queueItems.some(item => item.track.id === trackChecked.id)
+  getQueueItemFromTrackId(id: string): QueueItem | null{
+    for (const queueItem of this.queueItems) {
+      if(queueItem.track.id === id){
+        return queueItem
+      }
+    }
+
+    return null
   }
 }

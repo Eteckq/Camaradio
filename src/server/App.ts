@@ -27,6 +27,8 @@ export default class Controller {
         userSocket.bindOnHello(this.handleOnHello)
         userSocket.bindOnDisconnect(this.handleOnDisconnect)
         userSocket.bindOnAddTrack(this.handleOnTrack)
+        userSocket.bindOnHateTrack(this.handleOnHateTrack)
+        userSocket.bindOnSkipTrack(this.handleOnSkipTrack)
     }
 
     handleOnDisconnect = (userSocket: UserSocket, data: any) => {
@@ -65,6 +67,27 @@ export default class Controller {
         })
     }
 
+    handleOnHateTrack = (userSocket: UserSocket, trackId: string) => {
+        let queueItem = this.playlist.queue.getQueueItemFromTrackId(trackId)
+
+        if(queueItem !== null && userSocket.user !== null){
+            queueItem.addHater(userSocket.user)
+            this.broadcastUpdateTrackList()
+            this.broadcastUserHateTrack(queueItem.track.id)
+        }
+    }
+
+    handleOnSkipTrack = (userSocket: UserSocket, data: any) => {
+        let queueItem = this.playlist.currentQueueItem
+
+        if(queueItem !== undefined && userSocket.user !== null){
+            queueItem.addHater(userSocket.user)
+            this.broadcastUpdateTrackList()
+            this.broadcastUserSkipTrack()
+        }
+        
+    }
+
     getActualTrackTimestamp() {
         return Date.now() - this._timer
     }
@@ -89,6 +112,14 @@ export default class Controller {
         }
 
         this.broadcastUpdateTrackList()
+    }
+
+    broadcastUserHateTrack(trackId: string){
+        this.socketManager.broadcastUserHateTrack(trackId)
+    }
+
+    broadcastUserSkipTrack(){
+        this.socketManager.broadcastUserSkipTrack()
     }
 
     broadcastUpdateTrackList(){
