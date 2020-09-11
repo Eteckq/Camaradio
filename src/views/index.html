@@ -32,27 +32,22 @@
         <div class="titleText">À venir...</div>
 
         <div id="tracksQueue">
-          <div class="trackContainer"></div>
-        </div>
-        <input
-          type="text"
-          id="searchInput"
-          name="name"
-          required
-          minlength="4"
-          maxlength="8"
-          size="10"
-          value="opeth"
-        />
+          <div class="trackContainer">
+            <i class="fas fa-angry icon"></i>
+            <div class="trackName">DJOMB</div>
+            ·
+            <div class="trackArtist">bosh</div>
+            <div class="trackAdder">par yoyo</div>
+          </div>
 
-        <button id="search">Chercher</button>
-
-        <div id="searchResult">
-          <table id="searchResultTable" class="table table-striped"></table>
+          <div class="trackContainer">
+            <i class="fas fa-angry icon"></i>
+            <div class="trackName">DJOMB</div>
+            ·
+            <div class="trackArtist">bosh</div>
+            <div class="trackAdder">par yoyo</div>
+          </div>
         </div>
-      </div>
-      <div class="col-4">
-        <table id="queueTable" class="table table-striped"></table>
       </div>
     </div>
 
@@ -82,7 +77,7 @@
         ></div>
         <div></div>
         <div id="trackAdder"></div>
-        <i id="angryIcon" class="fas fa-angry icon"></i>
+        <i id="currenTrackAngryIcon" class="fas fa-angry icon"></i>
       </div>
     </footer>
   </body>
@@ -104,11 +99,13 @@
 
     $(function () {
       app = new Controller(
-        new Service(new SpotifyService(), new SocketService(), new PlayerService()),
+        new Service(
+          new SpotifyService(),
+          new SocketService(),
+          new PlayerService()
+        ),
         new View()
       );
     });
-
-    
   </script>
 </html>
