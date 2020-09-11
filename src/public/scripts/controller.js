@@ -11,6 +11,11 @@ class Controller {
     this.service.socket.socketConnectEvent(this.handleConnect);
     this.service.socket.socketDisconnectEvent(this.handleDisconnect);
     this.service.socket.socketCurrentTrackChange(this.handleCurrentTrackChange);
+
+    setInterval(() => {
+      console.log("refresh token");
+      this.service.spotify.refreshToken();
+    }, 90000);
   }
 
   ///// HANDLERS /////
