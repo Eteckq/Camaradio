@@ -42,27 +42,47 @@ class View {
   }
 
   displayQueueTableFromTracks(queueItems) {
-    $("#queueTable").empty();
+    $("#tracksQueue").empty();
 
     queueItems.forEach((queueItem) => {
-      $("#queueTable").append(`
-            <tr>
-            <td>${queueItem.track.name}</td>
-            <td>${queueItem.track.artists[0].name}</td>
-            <td>Ajouté par ${queueItem.user.display_name}</td>
-            </tr>`);
+      $("#tracksQueue").append(`
+
+      <div class="trackContainer">
+      <i class="fas fa-angry trackQueueAngryIcon"></i>
+      <p class="trackName">${queueItem.track.name}</p>
+      ·
+      <p class="trackArtist">${queueItem.track.artists[0].name}</p>
+      <p class="trackAdder">par ${queueItem.user.display_name}</p>
+    </div>`);
     });
   }
 
   displayCurrentPlayedTrack(track) {
-    console.log("displayCurrentPlayedTrack");
     $("#currentTrack").empty();
 
     $("#currentTrack").append(`
-            <tr>
-            <td>${track.name}</td>
-            <td>${track.artists[0].name}</td>
-            </tr>`);
+
+    <div
+      id="leftCol"
+      class="column"
+      style="
+        background-image: url('${track.album.images[1].url}');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      "
+    ></div>
+    <div class="column" id="middleCol">
+      <div id="currentTrackText">
+        <div id="currentTrackName">${track.name}</div>
+        ·
+        <div id="currentTrackArtist">${track.artists[0].name}</div>
+      </div>
+      <div id="currentTrackAdder">par tom</div>
+    </div>
+    <div class="column" id="rigthCol">
+      <i id="currenTrackAngryIcon" class="fas fa-angry icon"></i>
+    </div>`);
   }
 
   displayHomePage() {
