@@ -77,9 +77,8 @@ export default class Controller {
 
   handleOnHateTrack = (userSocket: UserSocket, data: any) => {
     const queueItem = this.playlist.queue.getQueueItemFromTrackId(data.trackId);
-    console.log('hate' + queueItem?.haters.length);
-    
-    if (queueItem !== null && userSocket.user !== null) {
+
+    if (queueItem !== null && userSocket.user !== null && !queueItem?.haters.some(haterId => haterId === userSocket.user?.id)) {
       queueItem.addHater(userSocket.user);
       this.broadcastUpdateTrackList();
       this.broadcastUserHateTrack(queueItem.track.id);
