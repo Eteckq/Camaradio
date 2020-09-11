@@ -101,9 +101,12 @@ class Controller {
   startTimeline(position_ms, duration_ms) {
     clearInterval(this.timelineInterval);
 
+    let started = Date.now();
+    let timeline = position_ms;
+
     this.timelineInterval = setInterval(() => {
-      position_ms += 100;
-      this.view.setTimelinePercentage((position_ms / duration_ms) * 100);
-    }, 100);
+      timeline = position_ms + Date.now() - started;
+      this.view.setTimelinePercentage((timeline / duration_ms) * 100);
+    }, 250);
   }
 }
