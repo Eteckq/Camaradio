@@ -38,6 +38,14 @@ class View {
     });
   }
 
+  setTitleIfThereIsTrackInQueue(queueFilled) {
+    if (queueFilled) {
+      $("#trackIncoming").html("À venir...");
+    } else {
+      $("#trackIncoming").html("Aucune musique en attente");
+    }
+  }
+
   displaySearchResult(searchResults) {
     $("#searchResultTable").empty();
     // TODO Put 'id' in parent, and handle click event to get id (we shouldn't call 'app' on click)
@@ -61,10 +69,12 @@ class View {
 
   clearQueueTable() {
     $("#tracksQueue").empty();
+    this.setTitleIfThereIsTrackInQueue(false);
   }
 
   displayQueueTableFromTracks(queueItems) {
     this.clearQueueTable();
+    this.setTitleIfThereIsTrackInQueue(true);
     queueItems.forEach((queueItem) => {
       let haters = "";
 
