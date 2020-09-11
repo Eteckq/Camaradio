@@ -76,21 +76,42 @@ body {
 #tracksQueue {
   width: 100%;
   height: 100%;
+
+  font-weight: 600;
+  font-size: 40px;
+  color: #ffffff;
 }
 
 .trackContainer {
-  height: 140px;
-  width: 100%;
+  padding: 40px;
+  height: 60px;
+  width: calc(100% - 84px);
   border: var(--grey02) 2px solid;
 }
 
 .trackName {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 40px;
   color: #ffffff;
+  display: inline;
+}
+
+.trackArtist {
+  font-weight: 600;
+  font-size: 40px;
+  color: #ffffff;
+  display: inline;
+}
+
+.trackAdder {
+  font-weight: 600;
+  font-size: 40px;
+  color: #ffffff;
+  display: inline;
 }
 
 /* FOOTER */
+
 #player {
   position: absolute;
   bottom: 0;
