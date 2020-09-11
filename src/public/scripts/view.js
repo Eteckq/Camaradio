@@ -59,9 +59,12 @@ class View {
     });
   }
 
-  displayQueueTableFromTracks(queueItems) {
+  clearQueueTable() {
     $("#tracksQueue").empty();
+  }
 
+  displayQueueTableFromTracks(queueItems) {
+    this.clearQueueTable();
     queueItems.forEach((queueItem) => {
       let haters = "";
 

@@ -63,7 +63,7 @@ class Controller {
   handleUpdateTrackList = (queueItems) => {
     console.log("handleUpdateTrackList", queueItems);
     if (queueItems.length === 0) {
-      // TODO clear list ?
+      this.view.clearQueueTable();
       return;
     }
 
