@@ -98,12 +98,18 @@ class Controller {
     });
 
     this.view.displayCurrentPlayedTrack(track);
+    this.view.bindHateCurrentTrackButton(this.handleHateCurrentTrackButton);
+
     this.startTimeline(position_ms, track.duration_ms);
   };
 
   handleUserHateTrack = (data) => {
     let trackId = data.trackId;
     console.log("Someone hate " + trackId);
+  };
+
+  handleHateCurrentTrackButton = () => {
+    this.service.socket.sendHateCurrentTrack();
   };
 
   handleCurrentUserListChange = async (users) => {

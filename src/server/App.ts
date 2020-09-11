@@ -159,7 +159,7 @@ export default class Controller {
   checkIfEnoughHaters(queueItem: QueueItem){
     let totalUsers = this.userSockets.length
     let haters = queueItem.haters.length
-
+    
     return haters >= totalUsers/2
   }
 }

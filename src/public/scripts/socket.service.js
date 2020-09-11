@@ -45,4 +45,8 @@ class SocketService {
       trackId: trackId,
     });
   }
+
+  sendHateCurrentTrack() {
+    this.socket.emit("voteSkipTrack");
+  }
 }

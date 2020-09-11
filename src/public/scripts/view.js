@@ -20,6 +20,12 @@ class View {
     });
   }
 
+  bindHateCurrentTrackButton(handler) {
+    $("#currenTrackAngryIcon").click(function () {
+      handler();
+    });
+  }
+
   bindMenuButton(handler) {
     $("#menuIcon").click(() => {
       handler();
