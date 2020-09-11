@@ -15,6 +15,10 @@ class Controller {
     this.service.socket.socketDisconnectEvent(this.handleDisconnect);
     this.service.socket.socketCurrentTrackChange(this.handleCurrentTrackChange);
 
+    this.service.socket.socketUpdateConnectedUsersList(
+      this.handleCurrentUserListChange
+    );
+
     setInterval(() => {
       console.log("refresh token");
       this.service.spotify.refreshToken();
@@ -88,6 +92,10 @@ class Controller {
     this.startTimeline(position_ms, track.duration_ms);
   };
 
+  handleCurrentUserListChange = async (users) => {
+    console.log("handleCurrentUserListChange");
+    this.view.displayCurrentUsersList(users);
+  };
   ///// Functions /////
 
   addTrackToQueue(trackId) {

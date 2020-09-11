@@ -13,7 +13,6 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/reset.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 
-    
     <!-- <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
     <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script> -->
@@ -26,7 +25,7 @@
     />
   </head>
   <body>
-    <div id="page1">
+    <div id="page1" class="page">
       <div id="header">
         <i class="fas fa-search icon" id="searchIcon"></i>
         <div id="appName">Camaradio</div>
@@ -40,15 +39,24 @@
       </div>
     </div>
 
-    <div id="page2" style="display: none">
+    <div id="page2" style="display: none" class="page">
       <a class="backToHome"><i class="fas fa-arrow-left icon"></i></a>
 
       <input type="text" id="searchBar" />
       <div id="searchResultTable"></div>
     </div>
 
-    <div id="page3">
-      <a class="backToHome">BACK - menu</a>
+    <div id="page3" style="display: none" class="page">
+      <div class="backToHome"><i class="fas fa-arrow-left icon"></i></div>
+      <div id="nbUsersText">
+        <span id="nbUsers"> 3 </span>
+        utilisateurs connectés
+      </div>
+      <div id="userList">
+        <div class="userName">Pumba</div>
+        <div class="userName">Yoyo</div>
+        <div class="userName">Prouto</div>
+      </div>
     </div>
 
     <footer id="player">

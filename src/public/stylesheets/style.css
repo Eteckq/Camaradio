@@ -9,9 +9,7 @@ body {
   --red: #910808;
 }
 
-/* PAGE 1 */
-
-#page1 {
+.page {
   background: linear-gradient(
       180deg,
       #1d1d1d 8.85%,
@@ -24,6 +22,11 @@ body {
   left: 0;
   right: 0;
   bottom: 100px;
+}
+
+/* PAGE 1 */
+
+#page1 {
 }
 
 #header {
@@ -127,20 +130,7 @@ body {
 /* PAGE 2 */
 
 #page2 {
-  background: linear-gradient(
-      180deg,
-      #1d1d1d 8.85%,
-      rgba(44, 44, 44, 0.0364583) 100%
-    ),
-    #1d1d1d;
-
-  position: absolute;
-  top: 0px;
-  left: 0;
-  right: 0;
-  bottom: 100px;
   font-size: 80px;
-
   overflow-y: scroll;
 }
 
@@ -150,17 +140,16 @@ body {
 }
 
 #page2 #searchBar {
-   border-radius: 100px;
-   border: 1px solid #000000;
-   width: 600px;
-   height: 100px;
-   padding-left: 10px;
-   font-size: 60px;
-   margin-left: 100px;
-   margin-top: 20px;
+  border-radius: 100px;
+  border: 1px solid #000000;
+  width: 600px;
+  height: 100px;
+  padding-left: 10px;
+  font-size: 60px;
+  margin-left: 100px;
+  margin-top: 20px;
 
-
-  background: #F5F5F5;
+  background: #f5f5f5;
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -175,7 +164,7 @@ body {
   display: flex;
 }
 
-#page2 #searchResultTable .trackResult .trackCover{
+#page2 #searchResultTable .trackResult .trackCover {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -184,17 +173,14 @@ body {
   height: 150px;
 }
 
-
 #page2 #searchResultTable .trackResult .trackInfos {
   margin: 20px 50px;
   display: flex;
   flex-direction: column;
-
   align-content: space-around;
-
 }
 
-#page2 #searchResultTable .trackResult .trackName{
+#page2 #searchResultTable .trackResult .trackName {
   margin: 5px 0;
   font-weight: 600;
   font-size: 20px;
@@ -202,14 +188,39 @@ body {
   font-size: 50px;
 }
 
-#page2 #searchResultTable .trackResult .trackAuthor{
+#page2 #searchResultTable .trackResult .trackAuthor {
   margin: 5px 0;
   font-weight: 600;
   font-size: 20px;
-  color: #B3B3B3;
+  color: #b3b3b3;
   font-size: 50px;
 }
 
+/* PAGE 3 */
+
+#page3 .backToHome {
+  font-size: 35px;
+  margin: 50px 0 0 50px;
+}
+
+#page3 #nbUsersText {
+  font-weight: 600;
+  font-size: 70px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#page3 .userName {
+  margin: 30px 0;
+  font-weight: 600;
+  font-size: 60px;
+  color: var(--grey01);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /* FOOTER */
 

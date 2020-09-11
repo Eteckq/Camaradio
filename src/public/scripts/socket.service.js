@@ -18,10 +18,12 @@ class SocketService {
   }
 
   socketCurrentTrackChange(handler) {
-    console.log("socketCurrentTrackChange");
     this.socket.on("currentTrackChange", handler);
   }
 
+  socketUpdateConnectedUsersList(handler) {
+    this.socket.on("updateConnectedUsersList", handler);
+  }
   // Functions
 
   sendHello(data) {

@@ -26,8 +26,6 @@ class SpotifyService {
 
   // To delete
   getTracksFromTracksId(tracksId) {
-    console.log("getTracksFromTracksId");
-
     return getApi("tracks", {
       ids: tracksId.join(","),
     });
