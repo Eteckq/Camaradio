@@ -8,6 +8,8 @@ class Controller {
     this.view.bindSearchButton(this.handleSearchButton);
     this.view.bindSearchBar(this.handleSearchBar);
 
+    this.view.bindMuteCurrentTrackButton(this.handleMuteCurrentTrackButton);
+
     this.view.bindMenuButton(this.handleMenuButton);
     this.view.bindBackToHomeButton(this.handleBackToHomeButton);
 
@@ -43,6 +45,10 @@ class Controller {
 
   handleHateTrackButton = (trackId) => {
     this.service.socket.sendHateTrack(trackId);
+  };
+
+  handleMuteCurrentTrackButton = () => {
+    console.log("MUTE PLAYER");
   };
 
   // Page 2

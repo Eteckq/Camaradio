@@ -258,7 +258,7 @@ body {
   position: absolute;
   bottom: 170px;
   height: 10px;
-  width: 70%;
+  width: 0%;
   background: #ffffff;
   z-index: 2;
 }

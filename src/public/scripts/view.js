@@ -26,6 +26,12 @@ class View {
     });
   }
 
+  bindMuteCurrentTrackButton(handler) {
+    $("#muteCurrentTrack").click(function () {
+      handler();
+    });
+  }
+
   bindMenuButton(handler) {
     $("#menuIcon").click(() => {
       handler();
@@ -108,7 +114,7 @@ class View {
         background-position: center;
         background-size: contain;
       "
-    ></div>
+    ><i id="muteCurrentTrack" class="fas fa-volume-mute"></i></div>
     <div class="column" id="middleCol">
       <div id="currentTrackText">
         <div id="currentTrackName">${track.name}</div>
