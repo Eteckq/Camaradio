@@ -91,5 +91,7 @@ class Controller {
     this.service.spotify.getTrackFromId(trackId).then((track) => {
       this.service.socket.sendAddTrack(track);
     });
+
+    this.view.displayHomePage();
   }
 }
