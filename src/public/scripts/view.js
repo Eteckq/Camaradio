@@ -110,7 +110,14 @@ class View {
   }
 
   displayCurrentUsersList(users) {
+    $("#nbUsersText").empty();
+
+    $("#nbUsersText").append(`    
+      <span id="nbUsers"> ${users.length} </span>
+    ${users.length == 1 ? "utilisateur connecté" : "utilisateurs connectés"}`);
+
     $("#userList").empty();
+
     users.forEach((user) => {
       $("#userList").append(
         `<div class="userName"> ${user.display_name}</div>`

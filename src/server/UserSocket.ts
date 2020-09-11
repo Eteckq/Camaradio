@@ -66,10 +66,6 @@ export default class UserSocket {
     });
   }
 
-  updateConnectedUsersList(user: (User | null)[]) {
-    this.client.emit("updateConnectedUsersList", user);
-  }
-
   // TODO
   sendNotification() {}
 }
