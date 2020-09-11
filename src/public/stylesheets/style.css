@@ -190,17 +190,72 @@ body {
 
 #currentTrack {
   height: 100%;
+  width: 100%;
 }
 
-#albumCover {
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  float: left;
+}
+
+#leftCol {
   height: 100%;
-  background: black;
   width: 170px;
+  height: 100%;
+}
+
+#middleCol {
+  width: calc(86% - 170px);
+  height: 100%;
+}
+
+#currentTrackText {
+  margin: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 40px;
+  color: var(--grey01);
+}
+
+#currentTrackName {
+  font-size: 40px;
+  color: #ffffff;
+  display: inline;
+  margin: 0 20px 0 40px;
+}
+#currentTrackArtist {
+  font-weight: 600;
+  font-size: 40px;
+  color: var(--grey01);
+  display: inline;
+  margin: 0 20px;
+}
+
+#currentTrackAdder {
+  font-weight: normal;
+  font-size: 40px;
+  color: var(--grey01);
+  display: flex;
+  margin: 0 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+#rigthCol {
+  height: 100%;
+  width: 14%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #currenTrackAngryIcon {
   font-size: 80px;
-  position: absolute;
-  bottom: 40px;
-  right: 40px;
 }
