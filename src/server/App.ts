@@ -1,9 +1,9 @@
-import SocketManager from './SocketManager';
-import Playlist from '@entities/Playlist';
-import User from '@entities/User';
-import { Server, Socket } from 'socket.io';
-import UserSocket from './UserSocket';
-import QueueItem from '@entities/QueueItem';
+import SocketManager from "./SocketManager";
+import Playlist from "@entities/Playlist";
+import User from "@entities/User";
+import { Server, Socket } from "socket.io";
+import UserSocket from "./UserSocket";
+import QueueItem from "@entities/QueueItem";
 
 export default class Controller {
   socketManager: SocketManager;
@@ -33,8 +33,19 @@ export default class Controller {
     userSocket.bindOnSkipTrack(this.handleOnSkipTrack);
   };
 
-  handleOnDisconnect = (userSocket: UserSocket, data: any) => {
-    console.log(userSocket.user?.display_name + ' has disconnected');
+  handleOnDisconnect = (disconnectedUserSocket: UserSocket, data: any) => {
+    console.log(
+      disconnectedUserSocket.user?.display_name + " has disconnected"
+    );
+
+    const userSocketIndx = this.userSockets.findIndex(
+      (userSocket) => userSocket === disconnectedUserSocket
+    );
+    this.userSockets.splice(userSocketIndx, 1);
+
+    this.socketManager.broadcastUpdateConnectedUsersList(
+      this.userSockets.map((userSocket) => userSocket.user)
+    );
   };
 
   handleOnHello = (userSocket: UserSocket, data: any) => {
@@ -42,7 +53,7 @@ export default class Controller {
 
     userSocket.updateTrackList(this.playlist.getQueueItems());
 
-    userSocket.updateConnectedUsersList(
+    this.socketManager.broadcastUpdateConnectedUsersList(
       this.userSockets.map((userSocket) => userSocket.user)
     );
 
@@ -114,7 +125,7 @@ export default class Controller {
         this.nextTrack();
       }, duration);
     } else {
-      console.log('No new track to load');
+      console.log("No new track to load");
     }
 
     this.broadcastUpdateTrackList();
