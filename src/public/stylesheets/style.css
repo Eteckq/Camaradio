@@ -79,7 +79,7 @@ body {
 }
 
 .trackContainer {
-  height: 200px;
+  height: 140px;
   width: 100%;
   border: var(--grey02) 2px solid;
 }
