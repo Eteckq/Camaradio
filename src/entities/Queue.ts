@@ -27,6 +27,5 @@ export default class Queue {
 
   private trackExist(trackChecked: Track): boolean{
     return this.queueItems.some(item => item.track.id === trackChecked.id)
-
   }
 }

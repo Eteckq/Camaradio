@@ -8,7 +8,7 @@ export default class Playlist {
     public queue: Queue;
     public currentQueueItem: QueueItem | undefined = undefined;
 
-    private _timer: number = Date.now()
+    
 
     constructor() {
         this.queue = new Queue()
@@ -19,31 +19,16 @@ export default class Playlist {
     }
 
     addTrack(track: Track, user: User){
-        return this.queue.addTrack(track, user).then(() => {
+        return this.queue.addTrack(track, user)/* .then(()=>{
             if(this.currentQueueItem === undefined){
-                this.nextTrack()
+                this.loadNextTrack()
             }
-        })
-
+        }) */
     }
 
-    getActualTrackTimestamp() {
-        return Date.now() - this._timer
-    }
-
-    nextTrack(){
+    loadNextTrack(){
         this.currentQueueItem = this.queue.queueItems.shift();
-
-        if(this.currentQueueItem !== undefined){
-            const duration = this.currentQueueItem.track.duration_ms + 3000
-
-            // Prepare next track when current will be finished
-
-            this._timer = Date.now()
-            setTimeout(() => {
-                this.nextTrack()
-            }, duration);
-        }
+        return this.currentQueueItem
     }
 
     getCurrentQueueItem(){

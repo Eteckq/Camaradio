@@ -3,11 +3,13 @@ import Playlist from '@entities/Playlist'
 import User from '@entities/User'
 import { Server, Socket } from 'socket.io'
 import UserSocket from './UserSocket';
+import QueueItem from '@entities/QueueItem';
 
 export default class Controller {
     socketManager: SocketManager
 
     playlist = new Playlist()
+    private _timer: number = Date.now()
 
     userSockets: UserSocket[] = []
 
@@ -36,7 +38,7 @@ export default class Controller {
 
         const queueItem = this.playlist.getCurrentQueueItem()
         if(queueItem !== undefined){
-            userSocket.changeCurrentTrack(queueItem, this.playlist.getActualTrackTimestamp())
+            userSocket.changeCurrentTrack(queueItem, this.getActualTrackTimestamp())
         }
     }
 
@@ -49,15 +51,36 @@ export default class Controller {
 
             const queueItem = this.playlist.getCurrentQueueItem()
             const queueItems = this.playlist.getQueueItems()
-            
+
+            if(queueItem === undefined){
+                this.nextTrack()
+            }
 
             this.socketManager.broadcastUpdateTrackList(queueItems)
-            if(queueItem !== undefined && queueItems.length === 0){
-                userSocket.changeCurrentTrack(queueItem, this.playlist.getActualTrackTimestamp())
-            }
         }).catch( (error: string) => {
             console.log(error);
             userSocket.sendNotification()
         })
+    }
+
+    getActualTrackTimestamp() {
+        return Date.now() - this._timer
+    }
+
+    nextTrack(){
+        const queueItem = this.playlist.loadNextTrack()
+
+        if(queueItem !== undefined){
+            const duration = queueItem.track.duration_ms + 3000
+            this._timer = Date.now()
+            
+            setTimeout(() => {
+                this.nextTrack()
+            }, 5000);
+
+            this.socketManager.broadcastChangeCurrentTrack(queueItem, 0)
+        } else {
+            console.log("No new track to load");
+        }
     }
 }

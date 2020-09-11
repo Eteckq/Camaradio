@@ -15,9 +15,16 @@ export default class SocketManager {
     constructor(io: Server){
         this.io = io
     }
-    
+
     bindConnectionUserSocket(handler: any){
         this.io.on('connection', handler);
+    }
+
+    broadcastChangeCurrentTrack(queueItem: QueueItem, position_ms: number){
+        this.io.emit('currentTrackChange', {
+            queueItem,
+            position_ms
+        })
     }
 
     broadcastUpdateTrackList(queueItems: QueueItem[]){
