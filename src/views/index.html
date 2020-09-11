@@ -79,7 +79,7 @@
 
     $(function () {
       app = new Controller(
-        new Service(new SpotifyService(), new SocketService()),
+        new Service(new SpotifyService(), new SocketService(), new PlayerService()),
         new View()
       );
     });

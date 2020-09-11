@@ -11,6 +11,8 @@ export default class Controller {
     playlist = new Playlist()
     private _timer: number = Date.now()
 
+    private _timeout: any = null
+
     userSockets: UserSocket[] = []
 
     constructor(io: Server){
@@ -73,17 +75,19 @@ export default class Controller {
         if(queueItem !== undefined){
             const duration = queueItem.track.duration_ms
             this._timer = Date.now()
-            
+
             this.broadcastChangeCurrentTrack()
 
-            setTimeout(() => {
+            clearTimeout(this._timeout)
+
+            this._timeout = setTimeout(() => {
                 this.nextTrack()
             }, duration);
 
         } else {
-            console.log("No new track to load");
+            console.log('No new track to load');
         }
-        
+
         this.broadcastUpdateTrackList()
     }
 

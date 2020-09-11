@@ -1,6 +1,7 @@
 class Service {
-  constructor(spotify, socket) {
+  constructor(spotify, socket, player) {
     this.socket = socket;
     this.spotify = spotify;
+    this.player = player;
   }
 }
