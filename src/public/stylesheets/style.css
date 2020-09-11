@@ -9,6 +9,8 @@ body {
   --red: #910808;
 }
 
+/* PAGE 1 */
+
 #page1 {
   background: linear-gradient(
       180deg,
@@ -89,6 +91,42 @@ body {
   font-size: 20px;
   color: #ffffff;
 }
+
+/* PAGE 2 */
+
+#page2 {
+  background: linear-gradient(
+      180deg,
+      #1d1d1d 8.85%,
+      rgba(44, 44, 44, 0.0364583) 100%
+    ),
+    #1d1d1d;
+
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+  bottom: 100px;
+}
+
+#page2 .backToHome {
+  font-size: 35px;
+}
+
+#page2 #searchBar {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+   border-radius: 20px;
+   border: 1px solid #ffffff;
+   width: 250px;
+   height: 30px;
+   padding-left: 10px;
+}
+
+#page2 #searchBar[type=text]:focus {
+  outline: none;
+}
+
 
 /* FOOTER */
 #player {

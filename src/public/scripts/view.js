@@ -7,6 +7,13 @@ class View {
     });
   }
 
+  bindSearchBar(handler) {
+    $("#searchBar").keypress((test) => {
+      let val = $("#searchBar").val();
+      if (val != "") handler($("#searchBar").val());
+    });
+  }
+
   bindMenuButton(handler) {
     $("#menuIcon").click(() => {
       handler();
