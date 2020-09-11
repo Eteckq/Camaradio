@@ -7,6 +7,7 @@ class Controller {
 
     this.view.bindSearchButton(this.handleSearchButton);
     this.view.bindSearchBar(this.handleSearchBar);
+
     this.view.bindMenuButton(this.handleMenuButton);
     this.view.bindBackToHomeButton(this.handleBackToHomeButton);
 
@@ -14,6 +15,7 @@ class Controller {
     this.service.socket.socketConnectEvent(this.handleConnect);
     this.service.socket.socketDisconnectEvent(this.handleDisconnect);
     this.service.socket.socketCurrentTrackChange(this.handleCurrentTrackChange);
+    this.service.socket.socketUserHateTrackEvent(this.handleUserHateTrack);
 
     setInterval(() => {
       console.log("refresh token");
@@ -33,6 +35,10 @@ class Controller {
 
   handleMenuButton = () => {
     this.view.displayMenuPage();
+  };
+
+  handleHateTrackButton = (trackId) => {
+    this.service.socket.sendHateTrack(trackId);
   };
 
   // Page 2
@@ -58,6 +64,8 @@ class Controller {
 
     console.log("updateTrackList", queueItems);
     this.view.displayQueueTableFromTracks(queueItems);
+
+    this.view.bindHateTrackButton(this.handleHateTrackButton);
   };
 
   handleConnect = () => {
@@ -86,6 +94,11 @@ class Controller {
 
     this.view.displayCurrentPlayedTrack(track);
     this.startTimeline(position_ms, track.duration_ms);
+  };
+
+  handleUserHateTrack = (data) => {
+    let trackId = data.trackId;
+    console.log("Someone hate " + trackId);
   };
 
   ///// Functions /////

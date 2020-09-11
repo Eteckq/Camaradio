@@ -14,6 +14,12 @@ class View {
     });
   }
 
+  bindHateTrackButton(handler) {
+    $(".trackQueueAngryIcon").click(function () {
+      handler($(this).parent().attr("track-id"));
+    });
+  }
+
   bindMenuButton(handler) {
     $("#menuIcon").click(() => {
       handler();
@@ -53,8 +59,9 @@ class View {
     queueItems.forEach((queueItem) => {
       $("#tracksQueue").append(`
 
-      <div class="trackContainer">
-      <i class="fas fa-angry trackQueueAngryIcon"></i>
+      <div class="trackContainer" track-id="${queueItem.track.id}">
+      <i class="fas fa-angry trackQueueAngryIcon"><span class="hatersCount">${queueItem.haters.length}</span></i>
+      
       <p class="trackName">${queueItem.track.name}</p>
       ·
       <p class="trackArtist">${queueItem.track.artists[0].name}</p>

@@ -22,6 +22,10 @@ class SocketService {
     this.socket.on("currentTrackChange", handler);
   }
 
+  socketUserHateTrackEvent(handler) {
+    this.socket.on("hateTrack", handler);
+  }
+
   // Functions
 
   sendHello(data) {
@@ -31,6 +35,12 @@ class SocketService {
   sendAddTrack(track) {
     this.socket.emit("addTrack", {
       track: track,
+    });
+  }
+
+  sendHateTrack(trackId) {
+    this.socket.emit("hateTrack", {
+      trackId: trackId,
     });
   }
 }

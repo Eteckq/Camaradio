@@ -67,8 +67,10 @@ export default class Controller {
         })
     }
 
-    handleOnHateTrack = (userSocket: UserSocket, trackId: string) => {
-        let queueItem = this.playlist.queue.getQueueItemFromTrackId(trackId)
+    handleOnHateTrack = (userSocket: UserSocket, data: any) => {
+        let queueItem = this.playlist.queue.getQueueItemFromTrackId(data.trackId)
+        
+        
 
         if(queueItem !== null && userSocket.user !== null){
             queueItem.addHater(userSocket.user)
@@ -96,7 +98,8 @@ export default class Controller {
         const queueItem = this.playlist.loadNextTrack()
 
         if(queueItem !== undefined){
-            const duration = queueItem.track.duration_ms
+            //Add 2 sec to track duration to be sure track is finish for everyone
+            const duration = queueItem.track.duration_ms + 2000
             this._timer = Date.now()
 
             this.broadcastChangeCurrentTrack()
