@@ -3,6 +3,8 @@ import socket, { Server, Socket } from 'socket.io';
 import User from '@entities/User'
 import Queue from '@entities/Queue'
 import Playlist from '@entities/Playlist'
+import QueueItem from '@entities/QueueItem'
+import App from './App'
 
 class UserSocket {
 
@@ -33,7 +35,7 @@ class UserSocket {
 
         this.updateTrackList(this.socketManager.app.playlist.getQueueItems())
 
-        let queueItem = this.socketManager.app.playlist.getCurrentQueueItem()
+        const queueItem = this.socketManager.app.playlist.getCurrentQueueItem()
         if(queueItem !== undefined){
             this.changeCurrentTrack(queueItem, this.socketManager.app.playlist.getActualTrackTimestamp())
         }
@@ -45,9 +47,9 @@ class UserSocket {
         }
 
         this.socketManager.app.playlist.addTrack(data.track, this.user).then(() => {
-            
-            let queueItem = this.socketManager.app.playlist.getCurrentQueueItem()
-            let queueItems = this.socketManager.app.playlist.getQueueItems()
+
+            const queueItem = this.socketManager.app.playlist.getCurrentQueueItem()
+            const queueItems = this.socketManager.app.playlist.getQueueItems()
 
             this.socketManager.io.emit('updateTrackList', queueItems)
             if(queueItem !== undefined && queueItems.length === 0){
@@ -86,67 +88,15 @@ class UserSocket {
 export default class SocketManager {
 
     io: Server
-<<<<<<< Updated upstream
-=======
     userSockets: UserSocket[] = []
     app: App
->>>>>>> Stashed changes
 
-    // Controller
-    playlist = new Playlist()
-    users: User[] = []
-
-    constructor(io: Server){
+    constructor(io: Server, app: App){
         this.io = io
-    }
+        this.app = app
 
-    init(){
         this.io.on('connection', (client: Socket) => {
-            let userSocket: UserSocket = new UserSocket(client, this);
-
-<<<<<<< Updated upstream
-            client.on('hello', data => {
-                user = data.user
-                this.users.push()
-=======
-            /* client.on('hello', data => {
-                userSocket.setUser(data.user)
-                this.userSockets.push(userSocket)
-
-                client.emit('updateTrackList', this.app.playlist.getQueueItems())
->>>>>>> Stashed changes
-
-                client.emit('updateTrackList', this.playlist.getQueueItems())
-            })
-
-            client.on('addTrack', data => {
-<<<<<<< Updated upstream
-                this.playlist.addTrack(data.track, user).then(queueItem => {
-                    this.io.emit('updateTrackList', this.playlist.getQueueItems())
-=======
-                if(userSocket.user === null){
-                    return;
-                }
-                this.app.playlist.addTrack(data.track, userSocket.user).then(() => {
-                    this.io.emit('updateTrackList', this.app.playlist.getQueueItems())
->>>>>>> Stashed changes
-
-                    setTimeout(() => {
-                        this.io.emit('updateTrackList', this.playlist.getQueueItems())
-
-                        this.io.emit('currentTrackChange', {
-                            queueItem,
-                            position_ms: 210
-                        })
-                    }, 2000);
-
-                }).catch( error => {
-                    console.log(error);
-                    client.emit('notify', error)
-                })
-
-
-            }) */
+            const userSocket: UserSocket = new UserSocket(client, this);
 
             client.on('disconnect', () => {
                 console.log('A user has disconnected from the socket!')
