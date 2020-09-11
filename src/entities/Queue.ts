@@ -9,7 +9,7 @@ export default class Queue {
     this.queueItems = [];
   }
 
-  addTrack(track: Track, user: User) {
+  addTrack(track: Track, user: User):Promise<QueueItem> {
     return new Promise((resolve, reject) => {
       if(this.trackExist(track)){
         reject('This track is already in queue')
