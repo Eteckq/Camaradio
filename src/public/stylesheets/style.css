@@ -103,7 +103,7 @@ body {
   color: #ffffff;
 }
 
-.hatersCount{
+.hatersCount {
   font-size: 30px;
   font-family: "Montserrat", sans-serif;
   background-color: var(--red);
@@ -137,6 +137,24 @@ body {
   font-style: normal;
   font-weight: normal;
   color: var(--grey01);
+}
+
+#hatedAnimationBloc {
+  position: absolute;
+
+  top: 400px;
+  left: 0;
+  padding: 40px;
+  height: 60px;
+  width: calc(100% - 84px);
+  border: var(--grey02) 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--grey02);
+  font-weight: 600;
+  font-size: 40px;
 }
 
 /* PAGE 2 */
@@ -258,7 +276,7 @@ body {
   position: absolute;
   bottom: 170px;
   height: 10px;
-  width: 70%;
+  width: 0;
   background: #ffffff;
   z-index: 2;
 }

@@ -1,12 +1,10 @@
 class PlayerService {
   constructor() {
-    console.log("init play back");
     let accessToken = getCookie("access_token");
 
     window.onSpotifyWebPlaybackSDKReady = () => {
       const token = accessToken;
 
-      console.log(accessToken);
       const player = new Spotify.Player({
         name: "Camaradio",
         getOAuthToken: (cb) => {

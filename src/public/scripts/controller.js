@@ -11,7 +11,7 @@ class Controller {
     this.view.bindMenuButton(this.handleMenuButton);
     this.view.bindBackToHomeButton(this.handleBackToHomeButton);
 
-    this.service.socket.socketUpdateTrackListEvent(this.handleUpdateTrackList);
+    //this.service.socket.socketUpdateTrackListEvent(this.handleUpdateTrackList);
     this.service.socket.socketConnectEvent(this.handleConnect);
     this.service.socket.socketDisconnectEvent(this.handleDisconnect);
     this.service.socket.socketCurrentTrackChange(this.handleCurrentTrackChange);
@@ -20,6 +20,8 @@ class Controller {
     this.service.socket.socketUpdateConnectedUsersList(
       this.handleCurrentUserListChange
     );
+
+    this.view.displayHaterAnimation();
 
     setInterval(() => {
       console.log("refresh token");
@@ -53,7 +55,6 @@ class Controller {
 
   handleSearchBar = (search) => {
     this.service.spotify.getTracksFromSearch(search).then((tracks) => {
-      console.log(tracks);
       this.view.displaySearchResult(tracks);
     });
   };
@@ -61,13 +62,11 @@ class Controller {
   // SOCKET Events
 
   handleUpdateTrackList = (queueItems) => {
-    console.log("handleUpdateTrackList", queueItems);
     if (queueItems.length === 0) {
       this.view.clearQueueTable();
       return;
     }
 
-    console.log("updateTrackList", queueItems);
     this.view.displayQueueTableFromTracks(queueItems);
 
     this.view.bindHateTrackButton(this.handleHateTrackButton);
@@ -97,7 +96,7 @@ class Controller {
       });
     });
 
-    this.view.displayCurrentPlayedTrack(track);
+    this.view.displayCurrentPlayedTrack(track, user);
     this.view.bindHateCurrentTrackButton(this.handleHateCurrentTrackButton);
 
     this.startTimeline(position_ms, track.duration_ms);
@@ -113,7 +112,6 @@ class Controller {
   };
 
   handleCurrentUserListChange = async (users) => {
-    console.log("handleCurrentUserListChange");
     this.view.displayCurrentUsersList(users);
   };
   ///// Functions /////

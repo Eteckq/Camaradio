@@ -84,7 +84,28 @@ class View {
     });
   }
 
-  displayCurrentPlayedTrack(track) {
+  displayHaterAnimation() {
+    var windowWidth = window.innerWidth;
+    $("#hatedAnimationBloc").css("left", windowWidth);
+
+    var pos = windowWidth;
+
+    console.log("blu");
+
+    var id = setInterval(frame, 5);
+
+    function frame() {
+      if (pos < -windowWidth) {
+        clearInterval(id);
+      } else {
+        pos -= 3;
+        console.log(pos);
+        $("#hatedAnimationBloc").css("left", pos + "px");
+      }
+    }
+  }
+
+  displayCurrentPlayedTrack(track, user) {
     $("#currentTrack").empty();
 
     $("#currentTrack").append(`
@@ -105,7 +126,7 @@ class View {
         ·
         <div id="currentTrackArtist">${track.artists[0].name}</div>
       </div>
-      <div id="currentTrackAdder">par tom</div>
+      <div id="currentTrackAdder">par ${user.display_name}</div>
     </div>
     <div class="column" id="rigthCol">
       <i id="currenTrackAngryIcon" class="fas fa-angry icon"></i>
