@@ -84,23 +84,72 @@ class View {
     });
   }
 
-  displayHaterAnimation() {
-    var windowWidth = window.innerWidth;
-    $("#hatedAnimationBloc").css("left", windowWidth);
+  displayHaterAnimation(track, user) {
+    const hatedTrackElem = $(`#page1 div[track-id=${track.id}]`);
+    const hatedTrackTop = hatedTrackElem.position().top;
+    const windowWidth = window.innerWidth;
 
-    var pos = windowWidth;
+    $("#page1").append(`
+    <div class="trackContainer" class="hatedAnimationBloc" id="before-anim-${track.id}" style="background: #1d1d1d">
+    <i class="fas fa-angry trackQueueAngryIcon"></i>
+    
+    <p class="trackName">${track.name}</p>
+    ·
+    <p class="trackArtist">${track.artists[0].name}</p>
+    <p class="trackAdder">par ${user.display_name}</p>
+  </div>`);
 
-    console.log("blu");
+    var beforeAnimElement = $(`#before-anim-${track.id}`);
+    beforeAnimElement.css({
+      position: "absolute",
+      top: hatedTrackTop + 100,
+      left: 0,
+    });
+
+    $("#page1").append(`
+    <div id="anim-${track.id}"  class="hatedAnimationBloc">
+    <i id="testAnim" class="fas fa-angry trackQueueAngryIcon"></i>
+    <p style="margin: 40px">${user.display_name} hated this music</p>
+    <i id="testAnim" class="fas fa-angry trackQueueAngryIcon"></i>
+  </div>`);
+
+    var animElement = $(`#anim-${track.id}`);
+    animElement.css("left", windowWidth);
+    animElement.css("top", hatedTrackTop + 100);
+
+    $("#page1").append(`
+      <div class="trackContainer" class="hatedAnimationBloc" id="after-anim-${track.id}" style="background: #1d1d1d">
+      <i class="fas fa-angry trackQueueAngryIcon"></i>
+
+      <p class="trackName">${track.name}</p>
+      ·
+      <p class="trackArtist">${track.artists[0].name}</p>
+      <p class="trackAdder">par ${user.display_name}</p>
+    </div>`);
+
+    var afterAnimElement = $(`#after-anim-${track.id}`);
+
+    afterAnimElement.css({
+      position: "absolute",
+      top: hatedTrackTop + 100,
+      left: windowWidth * 2,
+    });
+
+    var pos = 0;
 
     var id = setInterval(frame, 5);
 
     function frame() {
-      if (pos < -windowWidth) {
+      if (pos < -2 * windowWidth) {
         clearInterval(id);
+        beforeAnimElement.remove();
+        animElement.remove();
+        afterAnimElement.remove();
       } else {
-        pos -= 3;
-        console.log(pos);
-        $("#hatedAnimationBloc").css("left", pos + "px");
+        pos -= 2.5;
+        beforeAnimElement.css("left", pos + "px");
+        animElement.css("left", pos + windowWidth + "px");
+        afterAnimElement.css("left", pos + windowWidth * 2 + "px");
       }
     }
   }

@@ -1,5 +1,6 @@
 import SocketManager from "./SocketManager";
 import Playlist from "@entities/Playlist";
+import Track from "@entities/Track";
 import User from "@entities/User";
 import { Server, Socket } from "socket.io";
 import UserSocket from "./UserSocket";
@@ -89,16 +90,19 @@ export default class Controller {
   handleOnHateTrack = (userSocket: UserSocket, data: any) => {
     const queueItem = this.playlist.queue.getQueueItemFromTrackId(data.trackId);
 
-    if (queueItem !== null && userSocket.user !== null && !queueItem?.haters.some(haterId => haterId === userSocket.user?.id)) {
+    if (
+      queueItem !== null &&
+      userSocket.user !== null &&
+      !queueItem?.haters.some((haterId) => haterId === userSocket.user?.id)
+    ) {
       queueItem.addHater(userSocket.user);
-      this.broadcastUserHateTrack(queueItem.track.id);
+      this.broadcastUserHateTrack(queueItem.track, userSocket.user);
 
-      if(this.checkIfEnoughHaters(queueItem)){
-          //Remove from playlist
-          this.playlist.removeQueueItem(queueItem)
+      if (this.checkIfEnoughHaters(queueItem)) {
+        //Remove from playlist
+        this.playlist.removeQueueItem(queueItem);
       }
 
-      
       this.broadcastUpdateTrackList();
     }
   };
@@ -110,12 +114,11 @@ export default class Controller {
       queueItem.addHater(userSocket.user);
       this.broadcastUserSkipTrack();
 
-        if(this.checkIfEnoughHaters(queueItem)){
-            //Skip track
-            this.nextTrack()
-        }
+      if (this.checkIfEnoughHaters(queueItem)) {
+        //Skip track
+        this.nextTrack();
+      }
 
-        
       this.broadcastUpdateTrackList();
     }
   };
@@ -145,8 +148,8 @@ export default class Controller {
     this.broadcastUpdateTrackList();
   }
 
-  broadcastUserHateTrack(trackId: string) {
-    this.socketManager.broadcastUserHateTrack(trackId);
+  broadcastUserHateTrack(track: Track, user: User) {
+    this.socketManager.broadcastUserHateTrack(track, user);
   }
 
   broadcastUserSkipTrack() {
@@ -167,10 +170,10 @@ export default class Controller {
       );
   }
 
-  checkIfEnoughHaters(queueItem: QueueItem){
-    let totalUsers = this.userSockets.length
-    let haters = queueItem.haters.length
-    
-    return haters >= totalUsers/2
+  checkIfEnoughHaters(queueItem: QueueItem) {
+    let totalUsers = this.userSockets.length;
+    let haters = queueItem.haters.length;
+
+    return haters >= totalUsers / 2;
   }
 }

@@ -11,7 +11,7 @@ class Controller {
     this.view.bindMenuButton(this.handleMenuButton);
     this.view.bindBackToHomeButton(this.handleBackToHomeButton);
 
-    //this.service.socket.socketUpdateTrackListEvent(this.handleUpdateTrackList);
+    this.service.socket.socketUpdateTrackListEvent(this.handleUpdateTrackList);
     this.service.socket.socketConnectEvent(this.handleConnect);
     this.service.socket.socketDisconnectEvent(this.handleDisconnect);
     this.service.socket.socketCurrentTrackChange(this.handleCurrentTrackChange);
@@ -20,8 +20,6 @@ class Controller {
     this.service.socket.socketUpdateConnectedUsersList(
       this.handleCurrentUserListChange
     );
-
-    this.view.displayHaterAnimation();
 
     setInterval(() => {
       console.log("refresh token");
@@ -103,8 +101,13 @@ class Controller {
   };
 
   handleUserHateTrack = (data) => {
-    let trackId = data.trackId;
+    console.log("data");
+    console.log(data);
+
+    const trackId = data.track.id;
     console.log("Someone hate " + trackId);
+
+    this.view.displayHaterAnimation(data.track, data.user);
   };
 
   handleHateCurrentTrackButton = () => {

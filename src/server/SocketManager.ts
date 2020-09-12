@@ -1,5 +1,5 @@
 import socket, { Server, Socket } from "socket.io";
-
+import Track from "@entities/Track";
 import User from "@entities/User";
 import Queue from "@entities/Queue";
 import Playlist from "@entities/Playlist";
@@ -26,9 +26,10 @@ export default class SocketManager {
     });
   }
 
-  broadcastUserHateTrack(trackId: string) {
+  broadcastUserHateTrack(track: Track, user: User) {
     this.io.emit("hateTrack", {
-      trackId,
+      track,
+      user,
     });
   }
 
