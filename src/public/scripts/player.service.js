@@ -7,8 +7,7 @@ class PlayerService {
     window.onSpotifyWebPlaybackSDKReady = () => {
       const token = accessToken;
 
-      console.log(accessToken);
-      this.player = new Spotify.Player({
+      const player = new Spotify.Player({
         name: "Camaradio",
         getOAuthToken: (cb) => {
           cb(token);

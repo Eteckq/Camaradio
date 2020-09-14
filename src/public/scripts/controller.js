@@ -58,7 +58,6 @@ class Controller {
 
   handleSearchBar = (search) => {
     this.service.spotify.getTracksFromSearch(search).then((tracks) => {
-      console.log(tracks);
       this.view.displaySearchResult(tracks);
     });
   };
@@ -66,13 +65,11 @@ class Controller {
   // SOCKET Events
 
   handleUpdateTrackList = (queueItems) => {
-    console.log("handleUpdateTrackList", queueItems);
     if (queueItems.length === 0) {
       this.view.clearQueueTable();
       return;
     }
 
-    console.log("updateTrackList", queueItems);
     this.view.displayQueueTableFromTracks(queueItems);
 
     this.view.bindHateTrackButton(this.handleHateTrackButton);
@@ -104,8 +101,7 @@ class Controller {
       });
     }); */
 
-    this.view.displayCurrentPlayedTrack(track);
-
+    this.view.displayCurrentPlayedTrack(track, user);
     this.view.bindHateCurrentTrackButton(this.handleHateCurrentTrackButton);
     this.view.bindMuteCurrentTrackButton(this.handleMuteCurrentTrackButton);
 
@@ -113,8 +109,13 @@ class Controller {
   };
 
   handleUserHateTrack = (data) => {
-    let trackId = data.trackId;
+    console.log("data");
+    console.log(data);
+
+    const trackId = data.track.id;
     console.log("Someone hate " + trackId);
+
+    this.view.displayHaterAnimation(data.track, data.user);
   };
 
   handleHateCurrentTrackButton = () => {
@@ -122,7 +123,6 @@ class Controller {
   };
 
   handleCurrentUserListChange = async (users) => {
-    console.log("handleCurrentUserListChange");
     this.view.displayCurrentUsersList(users);
   };
   ///// Functions /////

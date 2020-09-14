@@ -4,8 +4,6 @@ class SpotifyService {
   // TRACKS
 
   getTracksFromSearch(query) {
-    console.log("search");
-
     return new Promise((resolve, reject) => {
       getApi("search", {
         q: query,
